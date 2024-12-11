@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    public int maxLife = 10;
+    [SerializeField]
+    private int maxLife = 10;
     private int life;
 
     // Start is called before the first frame update

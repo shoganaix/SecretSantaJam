@@ -6,18 +6,21 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    public static event Action Event;
+    public CharacterStats[] characters;
+    public static event Action<CharacterStats[]> Event;
     [SerializeField]
     private float timer = 0;
     private float timerAux = 0;
 
-    private void Update()
+private void Update()
+{
+    timerAux += Time.deltaTime;
+    if(timerAux >= timer)
     {
-        timerAux += Time.deltaTime;
-        if(timerAux >= timer)
-        {
-            Event?.Invoke();
-            timerAux = 0;
-        }
+        if (Event != null)
+            Event.Invoke(characters);
+        timerAux = 0;
     }
+}
+
 }
