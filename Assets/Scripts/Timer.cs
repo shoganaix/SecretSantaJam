@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
         timerAux += Time.deltaTime;
         if(timerAux >= timer)
         {
-            Event.Invoke();
+            Event?.Invoke();
             timerAux = 0;
         }
     }
