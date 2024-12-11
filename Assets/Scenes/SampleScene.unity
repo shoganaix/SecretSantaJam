@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66da8762c00eeb441ad9df46d2155459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characters: []
   timer: 2
 --- !u!1 &1552011254
 GameObject:
@@ -335,7 +336,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.65, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 1}
+  m_LocalScale: {x: 7, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 624352387}
@@ -421,8 +422,8 @@ Transform:
   m_GameObject: {fileID: 1577128084}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24, y: 1.65, z: -0.01}
-  m_LocalScale: {x: 15, y: 5.0337095, z: 1}
+  m_LocalPosition: {x: 0.24, y: 2.6448, z: -0.01}
+  m_LocalScale: {x: 15, y: 3.0438843, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -439,6 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44951ab03cc1cdd45a6f0e904889270d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card: {fileID: 0}
 --- !u!61 &1577128087
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -468,7 +470,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

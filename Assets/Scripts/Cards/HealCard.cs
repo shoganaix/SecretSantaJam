@@ -6,8 +6,9 @@ public class HealCard : Card
 {
     public int heal = 5;
 
-    public override void CardAction(CharacterStats charact)
+    public override void CardAction(CharacterStats[] characters)
     {
-        charact.Heal(heal);
+        base.CardAction(characters);
+        characters[0].Heal(heal);
     }
 }

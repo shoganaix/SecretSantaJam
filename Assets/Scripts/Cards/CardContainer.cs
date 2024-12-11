@@ -43,6 +43,7 @@ public class CardContainer : MonoBehaviour
             {
                 GameObject newCard = Instantiate(cardPrefab, transform);
                 cards[i] = newCard;
+                cards[i].GetComponent<Card>().cardContainer = this;
                 UpdateCardPositions();
                 break;
             }
@@ -53,9 +54,8 @@ public class CardContainer : MonoBehaviour
     {
         for (int i = cards.Length - 1; i >= 0; i--)
         {
-            if (cards[i] == card)
+            if (cards[i] != null && cards[i].GetComponent<Card>() == card)
             {
-                Destroy(cards[i]);
                 cards[i] = null;
                 UpdateCardPositions();
                 break;
@@ -81,7 +81,7 @@ public class CardContainer : MonoBehaviour
 
         float step = Mathf.Min(offset, childScale.x / activeCards);
         float startX = -((activeCards - 1) * step) / 2;
-        float angleStep = activeCards > 1 ? -30f / (activeCards - 1) : 0;
+        float angleStep = activeCards > 1 ? -40f / (activeCards - 1) : 0;
 
         int index = 0;
         foreach (var card in cards)
@@ -89,7 +89,7 @@ public class CardContainer : MonoBehaviour
             if (card != null)
             {
                 float xPosition = startX + index * step;
-                float angle = activeCards > 1 ? 30f / 2 + index * angleStep : 0;
+                float angle = activeCards > 1 ? 40f / 2 + index * angleStep : 0;
                 float yOffset = 0;
 
                 if (activeCards > 1)

@@ -5,15 +5,29 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public Sprite sprite;
-
+    [HideInInspector]
+    public CardContainer cardContainer;
     private Vector3 originPos;
     private Vector3 originScale;
     private Quaternion originRot;
     private bool isBack = false;
     private bool isDragging = false;
+    public bool isTrigger = false;
     private float backSpeed = 5f;
 
-    virtual public void CardAction(CharacterStats charact) {}
+    virtual public void CardAction(CharacterStats[] characters) 
+    {
+        Debug.Log("Action");
+        Timer.Event -= CardAction;
+        Destroy(this);
+    }
+
+    protected void deleteCard()
+    {
+        cardContainer.RemoveCard(this);
+        gameObject.SetActive(false);
+        GetComponent<Collider2D>().enabled = false;
+    }
     
     void OnMouseDrag()
     {
@@ -29,27 +43,18 @@ public class Card : MonoBehaviour
 
     void OnMouseUp()
     {
+        if(isDragging == true && isTrigger == true)
+        {
+            PlayedCard();
+        }
         isDragging = false;
         isBack = true;
     }
 
-    void Update()
+    void PlayedCard()
     {
-        if (isBack)
-        {
-            transform.position = Vector3.Lerp(transform.position, originPos, Time.deltaTime * backSpeed);
-            transform.localScale = Vector3.Lerp(transform.localScale, originScale, Time.deltaTime * backSpeed);
-            transform.rotation = Quaternion.Lerp(transform.rotation, originRot, Time.deltaTime * backSpeed);
-
-            if (Vector3.Distance(transform.position, originPos) < 0.05f)
-            {
-                transform.position = originPos;
-                isBack = false;
-                originPos = Vector3.zero;
-                transform.localScale = originScale;
-                transform.rotation = originRot;
-            }
-        }
+        Timer.Event += CardAction;
+        deleteCard();
     }
 
     void OnMouseEnter()
@@ -76,11 +81,22 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        if (other.name == "CardDropper")
+        if (isBack)
         {
-            Debug.Log("Colisionaste con el objeto: " + other.name);
+            transform.position = Vector3.Lerp(transform.position, originPos, Time.deltaTime * backSpeed);
+            transform.localScale = Vector3.Lerp(transform.localScale, originScale, Time.deltaTime * backSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, originRot, Time.deltaTime * backSpeed);
+
+            if (Vector3.Distance(transform.position, originPos) < 0.05f)
+            {
+                transform.position = originPos;
+                isBack = false;
+                originPos = Vector3.zero;
+                transform.localScale = originScale;
+                transform.rotation = originRot;
+            }
         }
     }
 }

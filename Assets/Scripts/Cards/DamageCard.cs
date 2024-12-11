@@ -14,8 +14,9 @@ public class DamageCard : Card
     public int damage = 4;
     public DamageType damageType;
 
-    public override void CardAction(CharacterStats charact)
+    public override void CardAction(CharacterStats[] characters)
     {
-        charact.GetDamage(damage);
+        base.CardAction(characters);
+        characters[1].GetDamage(damage);
     }
 }

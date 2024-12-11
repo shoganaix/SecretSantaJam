@@ -5,8 +5,8 @@ using UnityEngine;
 public class BubbleCard : Card
 {
 
-    public override void CardAction(CharacterStats charact)
+    public override void CardAction(CharacterStats[] characters)
     {
-
+        base.CardAction(characters);
     }
 }

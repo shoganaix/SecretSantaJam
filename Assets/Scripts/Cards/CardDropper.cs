@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class CardDropper : MonoBehaviour
 {
-    
-    void Start()
+    public Card card;
+
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        Timer.Event += Printf;
+        if (other.name == "CardDropper")
+        {
+            card.isTrigger = true;
+        }
     }
 
-    private void Printf()
+    public void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Works");
-        Timer.Event -= Printf;
+        if (other.name == "CardDropper")
+            card.isTrigger = false;
     }
 }
