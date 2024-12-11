@@ -5,7 +5,7 @@ using UnityEngine;
 public class CardContainer : MonoBehaviour
 {
     public GameObject cardPrefab;
-    public int maxCards = 10;
+    public int maxCards = 5;
     public float offset = 1.7f;
     public Transform scaleChild;
     private GameObject[] cards;
@@ -21,18 +21,7 @@ public class CardContainer : MonoBehaviour
         AddCard();
         AddCard();
         AddCard();
-    }
-
-    //private float timer = 1;
-    //private float timerAux = 0;
-    void Update()
-    {
-        /*timerAux += Time.deltaTime;
-        if(timerAux >= timer)
-        {
-            RemoveCard();
-            timerAux = 0;
-        }*/
+        Timer.stealCard += AddCard;
     }
 
     public void AddCard()
@@ -95,7 +84,7 @@ public class CardContainer : MonoBehaviour
                 if (activeCards > 1)
                 {
                     float normalizedPosition = (float)index / (activeCards - 1);
-                    yOffset = -4 * 0.5f * Mathf.Pow(normalizedPosition - 0.5f, 2) + 0.5f;
+                    yOffset = transform.position.y * 0.5f * Mathf.Pow(normalizedPosition - 0.5f, 2) + 0.5f;
                 }
 
                 Vector3 targetPosition = new Vector3(xPosition, yOffset, 0);
@@ -134,5 +123,4 @@ public class CardContainer : MonoBehaviour
         card.transform.localRotation = targetRot;
         cardStates[card] = (targetPos, targetRot);
     }
-
 }

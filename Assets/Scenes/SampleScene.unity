@@ -260,8 +260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 1525895529864742173, guid: 02fa825eb556fc64d907eeaeb8f0aefa, type: 3}
-  maxCards: 10
-  offset: 1.7
+  maxCards: 5
+  offset: 2
   scaleChild: {fileID: 1552011255}
 --- !u!1 &643972854
 GameObject:
@@ -335,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 1552011254}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.65, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 7, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -422,8 +422,8 @@ Transform:
   m_GameObject: {fileID: 1577128084}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24, y: 2.6448, z: -0.01}
-  m_LocalScale: {x: 15, y: 3.0438843, z: 1}
+  m_LocalPosition: {x: 0.24, y: 2.13, z: -0.01}
+  m_LocalScale: {x: 15, y: 4.20056, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
