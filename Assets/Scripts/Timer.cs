@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     public CharacterStats[] characters;
     public static event Action<CharacterStats[]> Event;
     public static event Action stealCard;
+    public static event Action enemy;
     [SerializeField]
     private float timer = 0;
     private float timerAux = 0;
@@ -22,6 +23,8 @@ public class Timer : MonoBehaviour
                 Event.Invoke(characters);
             if (stealCard != null)
                 stealCard.Invoke();
+            if (enemy != null)
+                enemy.Invoke();
             timerAux = 0;
         }
     }
