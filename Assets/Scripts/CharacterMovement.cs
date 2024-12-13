@@ -9,6 +9,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
+        Timer.enemy += MoveToGridObject;
         map = FindObjectOfType<Map>();
         if (map == null)
             Debug.LogError("No se encontro");
@@ -22,7 +23,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 Debug.Log("W pressed");
                 currentpos--;
-                MoveToGridObject();
+                //MoveToGridObject();
             }
         }
         if (Input.GetKeyDown(KeyCode.A))
@@ -31,7 +32,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 Debug.Log("A pressed");
                 currentpos += 3;
-                MoveToGridObject();
+                //MoveToGridObject();
             }
         }
         if (Input.GetKeyDown(KeyCode.S))
@@ -40,7 +41,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 currentpos++;
                 Debug.Log("S pressed");
-                MoveToGridObject();
+                //MoveToGridObject();
             }
         }
 
@@ -50,7 +51,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 currentpos -= 3;
                 Debug.Log("D pressed");
-                MoveToGridObject();
+                //MoveToGridObject();
             }
         }
     }
@@ -62,7 +63,7 @@ public class CharacterMovement : MonoBehaviour
         if (targetPosition)
         {
             transform.position = targetPosition.transform.position;
-            Debug.Log($"New pos: {currentpos}");
+            Debug.Log($"Character New pos: {currentpos}");
         }
         else
             Debug.LogWarning("No se pudo mover");
