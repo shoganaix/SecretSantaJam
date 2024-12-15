@@ -7,34 +7,41 @@ public class Card : MonoBehaviour
     public Sprite sprite;
     [HideInInspector]
     public CardContainer cardContainer;
-    private Vector3 originPos;
-    private Vector3 originScale;
-    private Quaternion originRot;
+    [HideInInspector]
+    public Vector3 originPos;
+    [HideInInspector]
+    public Vector3 originScale;
+    [HideInInspector]
+    public Quaternion originRot;
     private bool isBack = false;
-    private bool isDragging = false;
+    [HideInInspector]
+    public bool isDragging = false;
     public bool isTrigger = false;
-    private float backSpeed = 5f;
+    private bool isOn = false;
+    private float animSpeed = 100f;
 
-    virtual public void CardAction(CharacterStats[] characters) 
+    private Vector3 targetScale;
+    [HideInInspector]
+    public Vector3 targetPosition;
+    [HideInInspector]
+    public Quaternion targetRotation;
+
+    void Start()
+    {
+        originScale = transform.localScale;
+        targetScale = originScale;
+        targetPosition = originPos;
+        targetRotation = originRot;
+    }
+
+    virtual public void CardAction(CharacterStats[] characters)
     {
         Debug.Log("Action");
         Timer.Event -= CardAction;
-        Destroy(this);
     }
 
-    protected void deleteCard()
-    {
-        cardContainer.RemoveCard(this);
-        gameObject.SetActive(false);
-        GetComponent<Collider2D>().enabled = false;
-    }
-    
     void OnMouseDrag()
     {
-        if (!isBack && originPos == Vector3.zero)
-        {
-            originPos = transform.position;
-        }
         isDragging = true;
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = Camera.main.WorldToScreenPoint(transform.position).z;
@@ -43,9 +50,14 @@ public class Card : MonoBehaviour
 
     void OnMouseUp()
     {
-        if(isDragging == true && isTrigger == true)
+        if (isDragging && isTrigger)
         {
             PlayedCard();
+        }
+        else if(isDragging)
+        {
+            isOn = false;
+            cardContainer.ResetCardsPositions();
         }
         isDragging = false;
         isBack = true;
@@ -54,49 +66,84 @@ public class Card : MonoBehaviour
     void PlayedCard()
     {
         Timer.Event += CardAction;
-        deleteCard();
+        cardContainer.RemoveCard(this);
+
+        targetScale = originScale;
+        targetPosition = originPos;
+        targetRotation = originRot;
+        transform.position = originPos;
+        transform.localScale = originScale;
+        transform.rotation = originRot;
+        isBack = false;
+        isOn = false;
+        cardContainer.ResetCardsPositions();
     }
 
-    void OnMouseEnter()
+    void OnMouseOver()
     {
-        if (!isBack && !isDragging)
+        if (!isBack && !isDragging && !isOn && !cardContainer.isUpdatingCards)
         {
-            originScale = transform.localScale;
-            originRot = transform.rotation;
-            originPos = transform.position;
-            transform.localScale = originScale * 1.2f;
-            transform.position += Vector3.up * 0.3f;
-            transform.position += Vector3.forward * -0.01f;
-            transform.rotation = Quaternion.identity;
+            targetScale = originScale * 1.2f;
+            targetPosition = originPos + Vector3.up * 0.3f + Vector3.forward * -0.1f;
+            targetRotation = Quaternion.identity;
+            cardContainer.AdjustCardsForHover(gameObject, 0.3f);
+            isOn = true;
         }
+        if(cardContainer)
+            isOn = false;
     }
 
     void OnMouseExit()
     {
-        if (!isBack && originPos != Vector3.zero && !isDragging)
+        if (!isBack && !isDragging && !cardContainer.isUpdatingCards)
         {
-            transform.localScale = originScale;
-            transform.position = originPos;
-            transform.rotation = originRot;
+            targetScale = originScale;
+            targetPosition = originPos;
+            targetRotation = originRot;
+            cardContainer.ResetCardsPositions();
+            isOn = false;
         }
+        if(cardContainer)
+            targetScale = originScale;
+    }
+
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.name == "CardDropper")
+            isTrigger = true;
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == "CardDropper")
+            isTrigger = false;
     }
 
     void Update()
     {
         if (isBack)
         {
-            transform.position = Vector3.Lerp(transform.position, originPos, Time.deltaTime * backSpeed);
-            transform.localScale = Vector3.Lerp(transform.localScale, originScale, Time.deltaTime * backSpeed);
-            transform.rotation = Quaternion.Lerp(transform.rotation, originRot, Time.deltaTime * backSpeed);
+            targetPosition = originPos;
+            targetScale = originScale;
+            targetRotation = originRot;
+        }
+        if(!isDragging && !cardContainer.isUpdatingCards)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * animSpeed);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * animSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * animSpeed);
+        }
 
-            if (Vector3.Distance(transform.position, originPos) < 0.05f)
-            {
-                transform.position = originPos;
-                isBack = false;
-                originPos = Vector3.zero;
-                transform.localScale = originScale;
-                transform.rotation = originRot;
-            }
+        if (isBack && Vector3.Distance(transform.position, originPos) < 0.05f)
+        {
+            transform.position = originPos;
+            isBack = false;
+            if(isOn)
+                cardContainer.ResetCardsPositions();
+            isOn = false;
+            transform.localScale = originScale;
+            transform.rotation = originRot;
         }
     }
 }
