@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    
     public Sprite sprite;
     [HideInInspector]
     public CardContainer cardContainer;
@@ -16,6 +17,7 @@ public class Card : MonoBehaviour
     private bool isBack = false;
     [HideInInspector]
     public bool isDragging = false;
+    [HideInInspector]
     public bool isTrigger = false;
     private bool isOn = false;
     private float animSpeed = 100f;

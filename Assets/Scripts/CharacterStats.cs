@@ -26,6 +26,11 @@ public class CharacterStats : MonoBehaviour
             life = maxLife;
     }
 
+    public void ActivateBubble()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
