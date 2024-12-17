@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    private Grid map;
-    private int currentpos = 1; // Pos actual
-
+    //private Grid map;
+    //private int currentpos = 1; // Pos actual
+    /*
     void Start()
     {
         Timer.enemy += MoveToGridObject;
@@ -67,5 +67,5 @@ public class CharacterMovement : MonoBehaviour
         }
         else
             Debug.LogWarning("No se pudo mover");
-    }
+    }*/
 }

@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1928959654501353839}
-  - component: {fileID: 1412776086105817435}
   - component: {fileID: 7322402773153727105}
   - component: {fileID: 2340435298177439659}
+  - component: {fileID: 7040763573325693636}
   m_Layer: 0
-  m_Name: BubbleCard
+  m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,25 +36,6 @@ Transform:
   - {fileID: 2860809772692857707}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1412776086105817435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525895529864742173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af02f72afb3e34e4bb038ba4e4c1e557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  cardContainer: {fileID: 0}
-  originPos: {x: 0, y: 0, z: 0}
-  originScale: {x: 0, y: 0, z: 0}
-  originRot: {x: 0, y: 0, z: 0, w: 0}
-  isDragging: 0
-  isTrigger: 0
 --- !u!61 &7322402773153727105
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -127,6 +108,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7040763573325693636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525895529864742173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c7a0df7b9b6ea41abf2f62a5d35c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  cardContainer: {fileID: 0}
+  originPos: {x: 0, y: 0, z: 0}
+  originScale: {x: 0, y: 0, z: 0}
+  originRot: {x: 0, y: 0, z: 0, w: 0}
+  isDragging: 0
+  isTrigger: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4016803332302047159
 GameObject:
   m_ObjectHideFlags: 0

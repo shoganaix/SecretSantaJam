@@ -6,8 +6,8 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    public CharacterStats[] characters;
-    public static event Action<CharacterStats[]> Event;
+    public Grid grid;
+    public static event Action<Grid> Event;
     public static event Action stealCard;
     public static event Action enemy;
     [SerializeField]
@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
         if(timerAux >= timer)
         {
             if (Event != null)
-                Event.Invoke(characters);
+                Event.Invoke(grid);
             if (stealCard != null)
                 stealCard.Invoke();
             if (enemy != null)

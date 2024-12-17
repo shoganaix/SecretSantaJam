@@ -36,7 +36,7 @@ public class Card : MonoBehaviour
         targetRotation = originRot;
     }
 
-    virtual public void CardAction(CharacterStats[] characters)
+    public void CardAction(Grid grid)
     {
         Debug.Log("Action");
         Timer.Event -= CardAction;
