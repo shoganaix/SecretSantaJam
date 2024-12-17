@@ -60,3 +60,17 @@ public class BubbleAction : GameAction
     }
 }
 
+public class MovementAction : GameAction
+{
+    public float Duration = 5f;
+
+    public override void DoAction(GameObject target)
+    {
+        // Implementa la burbuja protectora
+        var shield = target.GetComponent<CharacterStats>();
+        if (shield != null)
+        {
+            shield.ActivateBubble();
+        }
+    }
+}

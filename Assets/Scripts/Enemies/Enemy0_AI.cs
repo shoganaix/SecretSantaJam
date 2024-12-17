@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Enemy0_AI : MonoBehaviour
 {
-    private Map map;
-    private int currentpos = 10; // Pos actual
+    private Grid map;
+    private int currentpos = 10;
     private bool rest = false;
 
     void Start()
     {
         Timer.enemy += ExecutePattern;
-        map = FindObjectOfType<Map>();
+        map = FindObjectOfType<Grid>();
         if (map == null)
             Debug.LogError("No se encontro");
     }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-        private Map map;
-        private int currentpos = 1; // Pos actual
+    private Grid map;
+    private int currentpos = 1; // Pos actual
 
     void Start()
     {
         Timer.enemy += MoveToGridObject;
-        map = FindObjectOfType<Map>();
+        map = FindObjectOfType<Grid>();
         if (map == null)
             Debug.LogError("No se encontro");
     }
