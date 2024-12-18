@@ -9,7 +9,9 @@ public class Grid : MonoBehaviour
     private Dictionary<int, GameObject> gridOccupants;
     private int gridSize;
 
+    public int startIndex = 0;
     public GameObject playerPrefab;
+    [SerializeField]
     public GameObject player;
     public GameObject[] enemies;
 
@@ -18,11 +20,11 @@ public class Grid : MonoBehaviour
         gridSize = transform.childCount;
         gridOccupants = new Dictionary<int, GameObject>();
 
-        SpawnPlayer(0);
+        SpawnPlayer();
         SetEnemies();
     }
 
-    private void SpawnPlayer(int startIndex)
+    private void SpawnPlayer()
     {
         Transform spawnPosition = transform.GetChild(startIndex);
         player = Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity);
@@ -55,7 +57,7 @@ public class Grid : MonoBehaviour
         }
     }
 
-    private int GetObjectIndex(GameObject obj)
+    public int GetObjectIndex(GameObject obj)
     {
         foreach (var entry in gridOccupants)
         {
@@ -66,6 +68,20 @@ public class Grid : MonoBehaviour
         }
 
         return -1;
+    }
+
+    public GameObject GetObjectbyIndex(int id)
+    {
+        foreach (var entry in gridOccupants)
+        {
+            if (!entry.Value.CompareTag("Enemy") && id == -1)
+                return entry.Value;
+            else if (entry.Value.CompareTag("Enemy") && entry.Value.GetComponent<Enemy>().id == id)
+            {
+                return entry.Value;
+            }
+        }
+        return null;
     }
 
     public void Move(int direction, int enemyId)
@@ -100,7 +116,6 @@ public class Grid : MonoBehaviour
         {
             GameObject existingObj = gridOccupants[newIndex];
             existingObj.GetComponent<Enemy>().initPos = newIndex;
-            Debug.Log("Action " + newIndex);
             gridOccupants[100] = existingObj;
         }
         gridOccupants[newIndex] = obj;
@@ -111,6 +126,26 @@ public class Grid : MonoBehaviour
     public void MeleeDamage(int id)
     {
 
+        if (id == -1)
+        {
+            foreach (var entry in gridOccupants)
+            {
+                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 3 && GetObjectIndex(entry.Value) <= 5)
+                {
+                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                }
+            }
+        }
+        else
+        {
+            foreach (var entry in gridOccupants)
+            {
+                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
+                {
+                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                }
+            }
+        }
     }
 
 

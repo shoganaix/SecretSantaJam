@@ -42,7 +42,7 @@ public class Card : MonoBehaviour
     {
         Debug.Log("Action");
         gameAction.Type = actionType;
-        gameAction.DoAction(grid);
+        gameAction.DoAction(grid, -1);
         Timer.Event -= CardAction;
     }
 
