@@ -40,6 +40,7 @@ public class Grid : MonoBehaviour
 
             enemies[i].transform.position = spawnPosition.position;
             enemies[i].GetComponent<Enemy>().id = i + 1;
+            enemies[i].GetComponent<Enemy>().RemoveEnemy += RemoveEnemy;
 
             gridOccupants[enemyGridIndex] = enemies[i];
         }
@@ -181,6 +182,18 @@ public class Grid : MonoBehaviour
         else if (GetObjectIndex(player) == GetObjectIndex(GetObjectbyIndex(id)) - 6)
         {
             player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+        }
+    }
+
+    public void RemoveEnemy(int enemyId)
+    {
+        foreach (var entry in gridOccupants)
+        {
+            if (entry.Value.CompareTag("Enemy") && entry.Value.GetComponent<Enemy>().id == enemyId)
+            {
+                gridOccupants.Remove(entry.Key);
+                break;
+            }
         }
     }
 }

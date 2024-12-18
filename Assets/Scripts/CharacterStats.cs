@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,11 @@ public class CharacterStats : MonoBehaviour
     void Awake()
     {
         life = maxLife;
+    }
+
+    public float GetLife()
+    {
+        return life;
     }
 
     public void GetDamage(float Damage)
@@ -48,6 +54,8 @@ public class CharacterStats : MonoBehaviour
     void Update()
     {
         float fillAmount = life / maxLife;
+        if (life <= 0)
+            fillAmount = 0;
         lifeBar.GetComponent<RectTransform>().localScale = new Vector3(fillAmount * 2, 0.25f, 1);
         if(bubble)
         {
@@ -61,7 +69,8 @@ public class CharacterStats : MonoBehaviour
 
     private IEnumerator changeBarColor()
     {
-        yield return new WaitForSeconds(0.25f);
+        Debug.Log("White");
+        yield return new WaitForSeconds(0.2f);
         lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

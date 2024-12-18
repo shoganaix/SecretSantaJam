@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7322402773153727105}
   - component: {fileID: 2340435298177439659}
   - component: {fileID: 7040763573325693636}
+  - component: {fileID: 6871207487028039564}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -121,6 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
+  actionType: 1
+  gameAction: {fileID: 6871207487028039564}
   cardContainer: {fileID: 0}
   originPos: {x: 0, y: 0, z: 0}
   originScale: {x: 0, y: 0, z: 0}
@@ -129,6 +132,19 @@ MonoBehaviour:
   isTrigger: 0
   targetPosition: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6871207487028039564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525895529864742173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9504eda09ed72b4783750e7b18f6340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1 &4016803332302047159
 GameObject:
   m_ObjectHideFlags: 0

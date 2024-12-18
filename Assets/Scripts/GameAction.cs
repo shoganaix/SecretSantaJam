@@ -54,7 +54,7 @@ public class GameAction : MonoBehaviour
                 damageBasic(grid, id);
                 break;
             default:
-                Debug.Log("Action done, but bad id");
+                Debug.Log("Action done, but bad Type");
                 break;
         }
     }
