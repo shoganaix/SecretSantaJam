@@ -35,6 +35,7 @@ public class CharacterStats : MonoBehaviour
 
     public void ActivateBubble()
     {
+        Debug.Log("Bubbling");
         bubbleAux = 0;
         bubble = true;
     }
@@ -44,14 +45,16 @@ public class CharacterStats : MonoBehaviour
         if (lifeBar != null)
         {
             float fillAmount = life / maxLife;
-            Debug.Log(fillAmount);
             lifeBar.localScale = new Vector3(fillAmount * 2, 0.25f, 1);
         }
         if(bubble)
         {
             bubbleAux += Time.deltaTime;
             if(bubbleAux > 0.1)
+            {
                 bubble = false;
+                Debug.Log("bubble end");
+            }
         }
     }
 }

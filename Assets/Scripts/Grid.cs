@@ -130,21 +130,15 @@ public class Grid : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
-                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 3 && GetObjectIndex(entry.Value) <= 5)
-                {
-                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
-                }
-            }
-        }
-        else
-        {
-            foreach (var entry in gridOccupants)
-            {
                 if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
                 {
                     entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
                 }
             }
+        }
+        else if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+        {
+            player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
         }
     }
 

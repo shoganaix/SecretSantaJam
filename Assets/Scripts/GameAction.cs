@@ -42,11 +42,12 @@ public class GameAction : MonoBehaviour
                 Heal(grid, id);
                 break;
             case ActionType.bubble:
+                Bubble(grid, id);
                 break;
             case ActionType.damageLine:
                 break;
             case ActionType.damageMelee:
-                Attack(grid, id);
+                damageMelee(grid, id);
                 break;
             case ActionType.damageRange:
                 break;
@@ -98,14 +99,27 @@ public class GameAction : MonoBehaviour
         Timer.heal -= AuxBubble;
     }
 
-    public void Attack(Grid grid, int id)
+    public void damageMelee(Grid grid, int id)
     {
         actionId = id;
-        Timer.damage += AuxAttack;
+        Timer.damage += AuxdamageMelee;
     }
-    public void AuxAttack(Grid grid)
+    public void AuxdamageMelee(Grid grid)
     {
+        Debug.Log("attacking");
         grid.MeleeDamage(actionId);
-        Timer.damage -= AuxAttack;
+        Timer.damage -= AuxdamageMelee;
+    }
+
+    public void damageLine(Grid grid, int id)
+    {
+        actionId = id;
+        Timer.damage += AuxdamageLine;
+    }
+    public void AuxdamageLine(Grid grid)
+    {
+        Debug.Log("Line");
+        grid.MeleeDamage(actionId);
+        Timer.damage -= AuxdamageLine;
     }
 }
