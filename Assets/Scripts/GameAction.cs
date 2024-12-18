@@ -11,7 +11,7 @@ public enum ActionType
     rigth,
     damageLine,
     damageMelee,
-    damageRange,
+    damageBasic,
     bubble,
     heal
 }
@@ -50,7 +50,8 @@ public class GameAction : MonoBehaviour
             case ActionType.damageMelee:
                 damageMelee(grid, id);
                 break;
-            case ActionType.damageRange:
+            case ActionType.damageBasic:
+                damageBasic(grid, id);
                 break;
             default:
                 Debug.Log("Action done, but bad id");
@@ -107,7 +108,6 @@ public class GameAction : MonoBehaviour
     }
     public void AuxdamageMelee(Grid grid)
     {
-        Debug.Log("attacking");
         grid.MeleeDamage(actionId);
         Timer.damage -= AuxdamageMelee;
     }
@@ -119,8 +119,18 @@ public class GameAction : MonoBehaviour
     }
     public void AuxdamageLine(Grid grid)
     {
-        Debug.Log("Line");
         grid.lineDamage(actionId);
         Timer.damage -= AuxdamageLine;
+    }
+
+    public void damageBasic(Grid grid, int id)
+    {
+        actionId = id;
+        Timer.damage += AuxdamageBasic;
+    }
+    public void AuxdamageBasic(Grid grid)
+    {
+        grid.basicDamage(actionId);
+        Timer.damage -= AuxdamageBasic;
     }
 }

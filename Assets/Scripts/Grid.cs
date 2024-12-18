@@ -164,7 +164,7 @@ public class Grid : MonoBehaviour
             player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
         }
     }
-
+    
     public void basicDamage(int id)
     {
 
