@@ -5,12 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public void PlayGame()
+    {
+        SceneManager.LoadSceneAsync("MapOld");
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting...");
+        Application.Quit();
+    }
+
+        // Start is called before the first frame update
     void Start()
     {
-        SceneManager.LoadScene("Map", LoadSceneMode.Additive);
 
     }
+
 
     // Update is called once per frame
     void Update()
