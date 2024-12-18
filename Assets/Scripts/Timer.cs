@@ -8,8 +8,9 @@ public class Timer : MonoBehaviour
 {
     public Grid grid;
     public static event Action<Grid> Event;
+    public static event Action<Grid> heal;
+    public static event Action<Grid> damage;
     public static event Action stealCard;
-    public static event Action enemy;
     [SerializeField]
     private RectTransform timerBar;
     [SerializeField]
@@ -31,8 +32,10 @@ public class Timer : MonoBehaviour
                 Event.Invoke(grid);
             if (stealCard != null)
                 stealCard.Invoke();
-            if (enemy != null)
-                enemy.Invoke();
+            if (heal != null)
+                heal.Invoke(grid);
+            if (damage != null)
+                damage.Invoke(grid);
             timerAux = 0;
         }
     }

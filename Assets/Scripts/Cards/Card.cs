@@ -6,6 +6,8 @@ public class Card : MonoBehaviour
 {
     
     public Sprite sprite;
+    public ActionType actionType = ActionType.down;
+    private GameAction gameAction;
     [HideInInspector]
     public CardContainer cardContainer;
     [HideInInspector]
@@ -39,6 +41,8 @@ public class Card : MonoBehaviour
     public void CardAction(Grid grid)
     {
         Debug.Log("Action");
+        gameAction.Type = actionType;
+        gameAction.DoAction(grid);
         Timer.Event -= CardAction;
     }
 
