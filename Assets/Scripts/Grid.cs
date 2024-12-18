@@ -130,6 +130,27 @@ public class Grid : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
+                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8 && 
+                    GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+                {
+                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                }
+            }
+        }
+        else if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5 && 
+            GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
+        {
+            player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+        }
+    }
+
+    public void lineDamage(int id)
+    {
+
+        if (id == -1)
+        {
+            foreach (var entry in gridOccupants)
+            {
                 if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
                 {
                     entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
@@ -142,7 +163,24 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void basicDamage(int id)
+    {
 
+        if (id == -1)
+        {
+            foreach (var entry in gridOccupants)
+            {
+                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
+                {
+                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                }
+            }
+        }
+        else if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+        {
+            player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+        }
+    }
 }
 
 

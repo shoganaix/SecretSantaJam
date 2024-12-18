@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
     [SerializeField]
-    private RectTransform lifeBar;
+    private GameObject lifeBar;
     [SerializeField]
     private float maxLife = 10;
     [SerializeField]
@@ -22,39 +22,46 @@ public class CharacterStats : MonoBehaviour
 
     public void GetDamage(float Damage)
     {
-        if(!bubble)
+        lifeBar.GetComponent<SpriteRenderer>().color = Color.red;
+        if (!bubble)
             life -= Damage;
+        StartCoroutine((changeBarColor()));
     }
 
     public void Heal()
     {
+        lifeBar.GetComponent<SpriteRenderer>().color = Color.green;
         life += healPower;
-        if(life > maxLife)
+        if (life > maxLife)
             life = maxLife;
+        StartCoroutine((changeBarColor()));
     }
 
     public void ActivateBubble()
     {
-        Debug.Log("Bubbling");
+        lifeBar.GetComponent<SpriteRenderer>().color = Color.cyan;
         bubbleAux = 0;
         bubble = true;
+        StartCoroutine((changeBarColor()));
     }
 
     void Update()
     {
-        if (lifeBar != null)
-        {
-            float fillAmount = life / maxLife;
-            lifeBar.localScale = new Vector3(fillAmount * 2, 0.25f, 1);
-        }
+        float fillAmount = life / maxLife;
+        lifeBar.GetComponent<RectTransform>().localScale = new Vector3(fillAmount * 2, 0.25f, 1);
         if(bubble)
         {
             bubbleAux += Time.deltaTime;
             if(bubbleAux > 0.1)
             {
                 bubble = false;
-                Debug.Log("bubble end");
             }
         }
+    }
+
+    private IEnumerator changeBarColor()
+    {
+        yield return new WaitForSeconds(0.25f);
+        lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

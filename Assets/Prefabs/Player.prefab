@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0d8492071045545b404749b7771636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeBar: {fileID: 9028637957548789862}
+  lifeBar: {fileID: 3218107623018511625}
   maxLife: 10
   healPower: 2
   damage: 4
