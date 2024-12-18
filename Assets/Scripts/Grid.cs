@@ -151,13 +151,15 @@ public class Grid : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
-                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
+                if (entry.Value.CompareTag("Enemy") && (GetObjectIndex(entry.Value) == 6 + GetObjectIndex(player) || GetObjectIndex(entry.Value) == 9 + GetObjectIndex(player) )&&
+                    GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
                 {
                     entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
                 }
             }
         }
-        else if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+        else if ((GetObjectIndex(player) == 0 + (GetObjectIndex(GetObjectbyIndex(id)) - 6) || GetObjectIndex(player) == 3 + (GetObjectIndex(GetObjectbyIndex(id)) - 6) )&&
+            GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
         {
             player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
         }
@@ -170,13 +172,13 @@ public class Grid : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
-                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
+                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) == GetObjectIndex(player) + 6)
                 {
                     entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
                 }
             }
         }
-        else if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+        else if (GetObjectIndex(player) == GetObjectIndex(GetObjectbyIndex(id)) - 6)
         {
             player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
         }

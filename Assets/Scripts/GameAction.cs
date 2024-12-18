@@ -45,6 +45,7 @@ public class GameAction : MonoBehaviour
                 Bubble(grid, id);
                 break;
             case ActionType.damageLine:
+                damageLine(grid, id);
                 break;
             case ActionType.damageMelee:
                 damageMelee(grid, id);
@@ -119,7 +120,7 @@ public class GameAction : MonoBehaviour
     public void AuxdamageLine(Grid grid)
     {
         Debug.Log("Line");
-        grid.MeleeDamage(actionId);
+        grid.lineDamage(actionId);
         Timer.damage -= AuxdamageLine;
     }
 }
