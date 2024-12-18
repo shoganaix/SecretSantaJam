@@ -8,15 +8,17 @@ public class CardContainer : MonoBehaviour
     public int maxCards = 5;
     public float offset = 1.7f;
     public Transform scaleChild;
-    private GameObject[] cards;
+
+    private List<GameObject> cardPool = new List<GameObject>();
+    private List<GameObject> activeCards = new List<GameObject>();
     private Dictionary<GameObject, (Vector3 position, Quaternion rotation)> cardStates = new Dictionary<GameObject, (Vector3, Quaternion)>();
     private float animTime = 0.2f;
-
+    [HideInInspector]
+    public bool isUpdatingCards = false;
 
     void Start()
     {
-        cards = new GameObject[maxCards];
-        UpdateCardPositions();
+        InitializePool();
         AddCard();
         AddCard();
         AddCard();
@@ -24,103 +26,143 @@ public class CardContainer : MonoBehaviour
         Timer.stealCard += AddCard;
     }
 
+    private void InitializePool()
+    {
+        for (int i = 0; i < maxCards * 2; i++)
+        {
+            GameObject newCard = Instantiate(cardPrefab, transform);
+            newCard.SetActive(false);
+            cardPool.Add(newCard);
+        }
+    }
+
     public void AddCard()
     {
-        for (int i = 0; i < cards.Length; i++)
+        if (activeCards.Count >= maxCards)
+            return;
+
+        GameObject card = GetCardFromPool();
+        if (card != null)
         {
-            if (cards[i] == null)
-            {
-                GameObject newCard = Instantiate(cardPrefab, transform);
-                cards[i] = newCard;
-                cards[i].GetComponent<Card>().cardContainer = this;
-                UpdateCardPositions();
-                break;
-            }
+            activeCards.Add(card);
+            card.GetComponent<Card>().cardContainer = this;
+            UpdateCardPositions();
         }
     }
 
     public void RemoveCard(Card card)
     {
-        for (int i = cards.Length - 1; i >= 0; i--)
+        if (activeCards.Contains(card.gameObject))
         {
-            if (cards[i] != null && cards[i].GetComponent<Card>() == card)
+            activeCards.Remove(card.gameObject);
+            card.gameObject.SetActive(false);
+            UpdateCardPositions();
+        }
+    }
+
+    private GameObject GetCardFromPool()
+    {
+        foreach (var card in cardPool)
+        {
+            if (!card.activeInHierarchy)
             {
-                cards[i] = null;
-                UpdateCardPositions();
-                break;
+                card.SetActive(true);
+                return card;
             }
+        }
+        return null;
+    }
+
+    public void AdjustCardsForHover(GameObject hoveredCard, float hoverOffset)
+    {
+        for (int i = 0; i < activeCards.Count; i++)
+        {
+            GameObject card = activeCards[i];
+            if (card != hoveredCard)
+            {
+                Vector3 adjustedPosition = card.GetComponent<Card>().originPos;
+                adjustedPosition.x += (i < activeCards.IndexOf(hoveredCard) ? -hoverOffset : hoverOffset);
+                card.GetComponent<Card>().targetPosition = adjustedPosition;
+            }
+        }
+    }
+
+    public void ResetCardsPositions()
+    {
+        foreach (var card in activeCards)
+        {
+            card.GetComponent<Card>().targetPosition = card.GetComponent<Card>().originPos;
         }
     }
 
     private void UpdateCardPositions()
     {
-        if (cards == null || scaleChild == null)
+        if (activeCards.Count == 0 || scaleChild == null)
             return;
 
+        isUpdatingCards = true;
         Vector3 childScale = scaleChild.localScale;
-        int activeCards = 0;
-
-        foreach (var card in cards)
+        float step = Mathf.Min(offset, childScale.x / activeCards.Count);
+        float startX = -((activeCards.Count - 1) * step) / 2;
+        float angleStep = activeCards.Count > 1 ? -40f / (activeCards.Count - 1) : 0;
+        float zOffsetStep = 0.02f;
+        
+        for (int i = 0; i < activeCards.Count; i++)
         {
-            if (card != null)
-                activeCards++;
-        }
-        if (activeCards == 0)
-            return;
+            float xPosition = startX + i * step;
+            float angle = activeCards.Count > 1 ? 40f / 2 + i * angleStep : 0;
+            float yOffset = scaleChild.position.y;
+            float zPosition = -i * zOffsetStep;
 
-        float step = Mathf.Min(offset, childScale.x / activeCards);
-        float startX = -((activeCards - 1) * step) / 2;
-        float angleStep = activeCards > 1 ? -40f / (activeCards - 1) : 0;
-
-        int index = 0;
-        foreach (var card in cards)
-        {
-            if (card != null)
+            if (activeCards.Count > 1)
             {
-                float xPosition = startX + index * step;
-                float angle = activeCards > 1 ? 40f / 2 + index * angleStep : 0;
-                float yOffset = 0;
-
-                if (activeCards > 1)
-                {
-                    float normalizedPosition = (float)index / (activeCards - 1);
-                    yOffset = transform.position.y * 0.5f * Mathf.Pow(normalizedPosition - 0.5f, 2) + 0.5f;
-                }
-
-                Vector3 targetPosition = new Vector3(xPosition, yOffset, 0);
-                Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-
-                StartCoroutine(moveCards(card, targetPosition, targetRotation));
-
-                index++;
+                float normalizedPosition = (float)i / (activeCards.Count - 1);
+                yOffset += transform.position.y * 0.5f * Mathf.Pow(normalizedPosition - 0.5f, 2) + 0.5f;
             }
+
+            Vector3 targetPosition = new Vector3(xPosition, yOffset, zPosition);
+            Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+
+            activeCards[i].GetComponent<Card>().originPos = targetPosition;
+            activeCards[i].GetComponent<Card>().originRot = targetRotation;
+
+            
+            activeCards[i].GetComponent<Card>().targetPosition = targetPosition;
+            activeCards[i].GetComponent<Card>().targetRotation = targetRotation;
+
+            if (!activeCards[i].GetComponent<Card>().isDragging)
+                StartCoroutine(moveCards(activeCards[i], targetPosition, targetRotation, i == activeCards.Count - 1));
         }
     }
 
-    private IEnumerator moveCards(GameObject card, Vector3 targetPos, Quaternion targetRot)
+
+    private IEnumerator moveCards(GameObject card, Vector3 targetPos, Quaternion targetRot, bool isLast)
     {
         if (!cardStates.ContainsKey(card))
-        {
-            cardStates[card] = (card.transform.localPosition, card.transform.localRotation);
-        }
+            cardStates[card] = (card.transform.position, card.transform.localRotation);
 
-        Vector3 initPos    = cardStates[card].position;
+        Vector3 initPos = cardStates[card].position;
         Quaternion initRot = cardStates[card].rotation;
-        float animTimeAux  = 0f;
+        float animTimeAux = 0f;
 
         while (animTimeAux < animTime)
         {
             animTimeAux += Time.deltaTime;
             float t = animTimeAux / animTime;
 
-            card.transform.localPosition = Vector3.Lerp(initPos, targetPos, t);
+            card.transform.position = Vector3.Lerp(initPos, targetPos, t);
             card.transform.localRotation = Quaternion.Lerp(initRot, targetRot, t);
 
             yield return null;
         }
 
-        card.transform.localPosition = targetPos;
+        card.transform.position = targetPos;
         card.transform.localRotation = targetRot;
+
         cardStates[card] = (targetPos, targetRot);
+
+        if (isLast)
+            isUpdatingCards = false;
     }
+
 }
