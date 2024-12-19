@@ -913,7 +913,7 @@ MonoBehaviour:
   pos5_1: {fileID: 331617100}
   pos5_2: {fileID: 1620513452}
   pos5_3: {fileID: 1849307750}
-  posicionmapa: 7
+  posicionmapa: 0
 --- !u!1 &388345337
 GameObject:
   m_ObjectHideFlags: 0
