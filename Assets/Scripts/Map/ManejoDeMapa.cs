@@ -4,149 +4,265 @@ using UnityEngine;
 
 public class ManejoDeMapa : MonoBehaviour
 {
-    public GameObject jugador;
+    public GameObject player;
+    public GameObject clouds;
     public GameObject pos0;
     public GameObject pos1;
-    public GameObject pos2_1;
-    public GameObject pos2_2;
+    public GameObject pos2;
     public GameObject pos3_1;
+    public GameObject botonLvl3_1;
     public GameObject pos3_2;
+    public GameObject botonLvl3_2;
     public GameObject pos4_1;
+    public GameObject botonLvl4_1;
     public GameObject pos4_2;
-    public GameObject pos4_3;
+    public GameObject botonLvl4_2;
     public GameObject pos5_1;
+    public GameObject botonLvl5_1;
     public GameObject pos5_2;
+    public GameObject botonLvl5_2;
     public GameObject pos5_3;
+    public GameObject botonLvl5_3;
+    public GameObject pos6_1;
+    public GameObject botonLvl6_1;
+    public GameObject pos6_2;
+    public GameObject botonLvl6_2;
+    public GameObject pos6_3;
+    public GameObject botonLvl6_3;
+    public GameObject posboss;
+    public GameObject botonboss;
+
 
     public int posicionmapa = 0;
 
     void Start()
     {
+        //posicionmapa = 5;
+        posicionmapa = GameController.Instance.mapPos;
         switch (posicionmapa)
         {
-            case 0:
-                if (jugador != null && pos0 != null)
+                case 0:
+                if (player != null && pos0 != null)
                 {
-                    jugador.transform.position = pos0.transform.position;
+                    player.transform.position = pos0.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
                 DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
                 break;
 
             case 1:
-                if (jugador != null && pos1 != null)
+                if (player != null && pos1 != null)
                 {
-                    jugador.transform.position = pos1.transform.position;
+                    player.transform.position = pos1.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
                 DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
                 break;
             case 2:
-                if (jugador != null && pos2_1 != null)
+                if (player != null && pos2 != null)
                 {
-                    jugador.transform.position = pos2_1.transform.position;
+                    player.transform.position = pos2.transform.position;
+                    MoverClouds();
+
                 }
-                DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl4");
                 DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
                 break;
             case 3:
-                if (jugador != null && pos2_2 != null)
+                if (player != null && pos3_1 != null)
                 {
-                    jugador.transform.position = pos2_2.transform.position;
+                    player.transform.position = pos3_1.transform.position;
+                    MoverClouds();
+
                 }
-                DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl1");
-                DesactivarBotonesPorTag("lvl4");
+                DesactivarBotonesPorTag("lvl2");
+                DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
+                //Specifically deactivates the other route
+                if (botonLvl4_2 != null)
+                {
+                    botonLvl4_2.SetActive(false);
+                }
                 break;
             case 4:
-                if (jugador != null && pos3_1 != null)
+                if (player != null && pos3_2 != null)
                 {
-                    jugador.transform.position = pos3_1.transform.position;
+                    player.transform.position = pos3_2.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
-                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
+                //Specifically deactivates the other route
+                if (botonLvl4_1 != null)
+                {
+                    botonLvl4_1.SetActive(false);
+                }
                 break;
             case 5:
-                if (jugador != null && pos3_2 != null)
+                if (player != null && pos4_1 != null)
                 {
-                    jugador.transform.position = pos3_2.transform.position;
+                    player.transform.position = pos4_1.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
-                DesactivarBotonesPorTag("lvl1");
-                DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl4");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
+                //Specifically deactivates the other route
+                if (botonLvl5_3 != null)
+                {
+                    botonLvl5_3.SetActive(false);
+                }
                 break;
             case 6:
-                if (jugador != null && pos4_1 != null)
+                if (player != null && pos4_2 != null)
                 {
-                    jugador.transform.position = pos4_1.transform.position;
+                    player.transform.position = pos4_2.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
-                DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl6");
+                DesactivarBotonesPorTag("boss");
+                //Specifically deactivates the other route
+                if (botonLvl5_1 != null)
+                {
+                    botonLvl5_1.SetActive(false);
+                }
                 break;
             case 7:
-                if (jugador != null && pos4_2 != null)
+                if (player != null && pos5_1 != null)
                 {
-                    jugador.transform.position = pos4_2.transform.position;
+                    player.transform.position = pos5_1.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
-                DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("boss");
+                //Specifically deactivates the other route
+                if (botonLvl6_2 != null)
+                {
+                    botonLvl6_2.SetActive(false);
+                }
+                //Specifically deactivates the other route
+                if (botonLvl6_3 != null)
+                {
+                    botonLvl6_3.SetActive(false);
+                }
                 break;
             case 8:
-                if (jugador != null && pos4_3 != null)
+                if (player != null && pos5_2 != null)
                 {
-                    jugador.transform.position = pos4_3.transform.position;
+                    player.transform.position = pos5_2.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
-                DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("boss");
+                //Specifically deactivates the other route
+                if (botonLvl6_1 != null)
+                {
+                    botonLvl6_1.SetActive(false);
+                }
+                //Specifically deactivates the other route
+                if (botonLvl6_3 != null)
+                {
+                    botonLvl6_3.SetActive(false);
+                }
                 break;
             case 9:
-                if (jugador != null && pos5_1 != null)
+                if (player != null && pos5_3 != null)
                 {
-                    jugador.transform.position = pos5_1.transform.position;
+                    player.transform.position = pos5_3.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
                 DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("boss");
+                          //Specifically deactivates the other route
+                if (botonLvl6_2 != null)
+                {
+                    botonLvl6_2.SetActive(false);
+                }
+                //Specifically deactivates the other route
+                if (botonLvl6_1 != null)
+                {
+                    botonLvl6_1.SetActive(false);
+                }
+                break;
+            case 10:
+                if (player != null && pos6_1 != null)
+                {
+                    player.transform.position = pos6_1.transform.position;
+                    MoverClouds();
+                }
                 DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl2");
+                DesactivarBotonesPorTag("lvl3");
+                DesactivarBotonesPorTag("lvl4");
+                DesactivarBotonesPorTag("lvl5");
+                DesactivarBotonesPorTag("lvl6");
                 break;
             case 11:
-                if (jugador != null && pos5_2 != null)
+                if (player != null && pos6_2 != null)
                 {
-                    jugador.transform.position = pos5_2.transform.position;
+                    player.transform.position = pos6_2.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
                 DesactivarBotonesPorTag("lvl5");
-                DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl6");
+
                 break;
             case 12:
-                if (jugador != null && pos5_3 != null)
+                if (player != null && pos6_3 != null)
                 {
-                    jugador.transform.position = pos5_3.transform.position;
+                    player.transform.position = pos6_3.transform.position;
+                    MoverClouds();
                 }
+                DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
                 DesactivarBotonesPorTag("lvl4");
                 DesactivarBotonesPorTag("lvl5");
-                DesactivarBotonesPorTag("lvl1");
+                DesactivarBotonesPorTag("lvl6");
                 break;
         }
     }
@@ -159,5 +275,23 @@ public class ManejoDeMapa : MonoBehaviour
             boton.SetActive(false);
         }
     }
+
+void MoverClouds()
+{
+    // Obtiene la posición del jugador
+    Vector3 playerPos = player.transform.position;
+
+    // Calcula la nueva posición de las nubes, desplazándolas verticalmente en función del jugador
+    Vector3 cloudsnewpos = clouds.transform.position;
+    cloudsnewpos.y = playerPos.y + 180;  // Ajusta la distancia de las nubes como necesites
+
+    // Aplica la nueva posición a las nubes
+    clouds.transform.position = cloudsnewpos;
+
+    // Mostrar logs para depuración
+    Debug.Log($"Posición actual del jugador: {playerPos}");
+    Debug.Log($"Nueva posición de las nubes: {clouds.transform.position}");
+}
+
 }
 

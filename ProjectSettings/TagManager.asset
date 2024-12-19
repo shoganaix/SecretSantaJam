@@ -10,6 +10,9 @@ TagManager:
   - lvl3
   - lvl4
   - lvl5
+  - Enemy
+  - lvl6
+  - boss
   layers:
   - Default
   - TransparentFX
