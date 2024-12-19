@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    
-    public Sprite sprite;
+    [HideInInspector]
     public GameAction gameAction;
     [HideInInspector]
     public CardContainer cardContainer;
@@ -39,7 +38,6 @@ public class Card : MonoBehaviour
 
     public void CardAction(Grid grid)
     {
-        gameAction.Type = ActionType.damageLine;
         gameAction.DoAction(grid, -1);
         Timer.Event -= CardAction;
     }

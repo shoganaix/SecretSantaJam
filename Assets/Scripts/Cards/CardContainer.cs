@@ -8,10 +8,10 @@ public class CardContainer : MonoBehaviour
     public int maxCards = 5;
     public float offset = 1.7f;
     public Transform scaleChild;
+    public Card_SO fallbackCardSO;
 
-    private List<GameObject> cardPool = new List<GameObject>();
     private List<GameObject> activeCards = new List<GameObject>();
-    private List<GameObject> deck = new List<GameObject>(); // Mazo de cartas
+    private List<GameObject> deck = new List<GameObject>();
     private Dictionary<GameObject, (Vector3 position, Quaternion rotation)> cardStates = new Dictionary<GameObject, (Vector3, Quaternion)>();
     private float animTime = 0.2f;
     [HideInInspector]
@@ -19,33 +19,32 @@ public class CardContainer : MonoBehaviour
 
     void Start()
     {
-        InitializePool();
         InitializeDeck();
         DealInitialCards();
         Timer.stealCard += DrawCard;
     }
 
-    private void InitializePool()
-    {
-        for (int i = 0; i < maxCards * 2; i++)
-        {
-            GameObject newCard = Instantiate(cardPrefab, transform);
-            newCard.SetActive(false);
-            cardPool.Add(newCard);
-        }
-    }
-
     private void InitializeDeck()
     {
-        foreach (var card in cardPool)
+        var cardSODeck = GameController.Instance.deck;
+
+        foreach (var cardSO in cardSODeck)
         {
-            if (!card.activeInHierarchy)
+            GameObject newCard = Instantiate(cardPrefab, transform);
+            var card = newCard.GetComponent<Card>();
+
+            Transform childTransform = newCard.transform.GetChild(0);
+            if (childTransform.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
             {
-                deck.Add(card);
+                spriteRenderer.color = cardSO.color;
             }
+
+            card.gameAction.Type = cardSO.actionType;
+
+            newCard.SetActive(false);
+            deck.Add(newCard);
         }
 
-        // Opcional: Barajar el mazo
         ShuffleDeck();
     }
 
@@ -71,11 +70,29 @@ public class CardContainer : MonoBehaviour
 
     public void DrawCard()
     {
-        if (deck.Count == 0 || activeCards.Count >= maxCards)
+        if (activeCards.Count >= maxCards)
             return;
 
-        GameObject card = deck[0];
-        deck.RemoveAt(0);
+        GameObject card;
+
+        if (deck.Count > 0)
+        {
+            card = deck[0];
+            deck.RemoveAt(0);
+        }
+        else
+        {
+            card = Instantiate(cardPrefab, transform);
+            var fallbackCard = card.GetComponent<Card>();
+
+            Transform childTransform = card.transform.GetChild(0);
+            if (childTransform.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+            {
+                spriteRenderer.color = fallbackCardSO.color;
+            }
+
+            fallbackCard.gameAction.Type = fallbackCardSO.actionType;
+        }
 
         card.SetActive(true);
         activeCards.Add(card);
@@ -93,19 +110,6 @@ public class CardContainer : MonoBehaviour
 
             UpdateCardPositions();
         }
-    }
-
-    private GameObject GetCardFromPool()
-    {
-        foreach (var card in cardPool)
-        {
-            if (!card.activeInHierarchy)
-            {
-                card.SetActive(true);
-                return card;
-            }
-        }
-        return null;
     }
 
     public void AdjustCardsForHover(GameObject hoveredCard, float hoverOffset)

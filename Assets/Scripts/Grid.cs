@@ -50,12 +50,18 @@ public class Grid : MonoBehaviour
     public void Move(int direction)
     {
         int currentIndex = GetObjectIndex(player);
+
+        if (currentIndex == 3 && direction == -1)
+            return;
+        if (currentIndex == 2 && direction == 1)
+            return;
         int newIndex = currentIndex + direction;
 
         if (newIndex >= 0 && newIndex < gridSize / 2)
         {
             MoveObject(currentIndex, newIndex, player);
         }
+        return;
     }
 
     public int GetObjectIndex(GameObject obj)
@@ -196,6 +202,8 @@ public class Grid : MonoBehaviour
             }
         }
     }
+
+
 }
 
 

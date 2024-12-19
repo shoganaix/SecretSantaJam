@@ -69,7 +69,6 @@ public class CharacterStats : MonoBehaviour
 
     private IEnumerator changeBarColor()
     {
-        Debug.Log("White");
         yield return new WaitForSeconds(0.2f);
         lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
     }
