@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ManejoDeMapa : MonoBehaviour
 {
-    public GameObject jugador;
+    public GameObject player;
+    public GameObject clouds;
     public GameObject pos0;
     public GameObject pos1;
     public GameObject pos2;
@@ -36,14 +37,15 @@ public class ManejoDeMapa : MonoBehaviour
 
     void Start()
     {
-        posicionmapa = 6;
-        //posicionmapa = GameController.Instance.mapPos;
+        //posicionmapa = 5;
+        posicionmapa = GameController.Instance.mapPos;
         switch (posicionmapa)
         {
                 case 0:
-                if (jugador != null && pos0 != null)
+                if (player != null && pos0 != null)
                 {
-                    jugador.transform.position = pos0.transform.position;
+                    player.transform.position = pos0.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl2");
                 DesactivarBotonesPorTag("lvl3");
@@ -54,9 +56,10 @@ public class ManejoDeMapa : MonoBehaviour
                 break;
 
             case 1:
-                if (jugador != null && pos1 != null)
+                if (player != null && pos1 != null)
                 {
-                    jugador.transform.position = pos1.transform.position;
+                    player.transform.position = pos1.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl3");
@@ -66,9 +69,11 @@ public class ManejoDeMapa : MonoBehaviour
                 DesactivarBotonesPorTag("boss");
                 break;
             case 2:
-                if (jugador != null && pos2 != null)
+                if (player != null && pos2 != null)
                 {
-                    jugador.transform.position = pos2.transform.position;
+                    player.transform.position = pos2.transform.position;
+                    MoverClouds();
+
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -78,9 +83,11 @@ public class ManejoDeMapa : MonoBehaviour
                 DesactivarBotonesPorTag("boss");
                 break;
             case 3:
-                if (jugador != null && pos3_1 != null)
+                if (player != null && pos3_1 != null)
                 {
-                    jugador.transform.position = pos3_1.transform.position;
+                    player.transform.position = pos3_1.transform.position;
+                    MoverClouds();
+
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -95,9 +102,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 4:
-                if (jugador != null && pos3_2 != null)
+                if (player != null && pos3_2 != null)
                 {
-                    jugador.transform.position = pos3_2.transform.position;
+                    player.transform.position = pos3_2.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -112,9 +120,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 5:
-                if (jugador != null && pos4_1 != null)
+                if (player != null && pos4_1 != null)
                 {
-                    jugador.transform.position = pos4_1.transform.position;
+                    player.transform.position = pos4_1.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -129,9 +138,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 6:
-                if (jugador != null && pos4_2 != null)
+                if (player != null && pos4_2 != null)
                 {
-                    jugador.transform.position = pos4_2.transform.position;
+                    player.transform.position = pos4_2.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -146,9 +156,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 7:
-                if (jugador != null && pos5_1 != null)
+                if (player != null && pos5_1 != null)
                 {
-                    jugador.transform.position = pos5_1.transform.position;
+                    player.transform.position = pos5_1.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -168,9 +179,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 8:
-                if (jugador != null && pos5_2 != null)
+                if (player != null && pos5_2 != null)
                 {
-                    jugador.transform.position = pos5_2.transform.position;
+                    player.transform.position = pos5_2.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -190,9 +202,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 9:
-                if (jugador != null && pos5_3 != null)
+                if (player != null && pos5_3 != null)
                 {
-                    jugador.transform.position = pos5_3.transform.position;
+                    player.transform.position = pos5_3.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -212,9 +225,10 @@ public class ManejoDeMapa : MonoBehaviour
                 }
                 break;
             case 10:
-                if (jugador != null && pos6_1 != null)
+                if (player != null && pos6_1 != null)
                 {
-                    jugador.transform.position = pos6_1.transform.position;
+                    player.transform.position = pos6_1.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -224,9 +238,10 @@ public class ManejoDeMapa : MonoBehaviour
                 DesactivarBotonesPorTag("lvl6");
                 break;
             case 11:
-                if (jugador != null && pos6_2 != null)
+                if (player != null && pos6_2 != null)
                 {
-                    jugador.transform.position = pos6_2.transform.position;
+                    player.transform.position = pos6_2.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -237,9 +252,10 @@ public class ManejoDeMapa : MonoBehaviour
 
                 break;
             case 12:
-                if (jugador != null && pos6_3 != null)
+                if (player != null && pos6_3 != null)
                 {
-                    jugador.transform.position = pos6_3.transform.position;
+                    player.transform.position = pos6_3.transform.position;
+                    MoverClouds();
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -259,5 +275,23 @@ public class ManejoDeMapa : MonoBehaviour
             boton.SetActive(false);
         }
     }
+
+void MoverClouds()
+{
+    // Obtiene la posición del jugador
+    Vector3 playerPos = player.transform.position;
+
+    // Calcula la nueva posición de las nubes, desplazándolas verticalmente en función del jugador
+    Vector3 cloudsnewpos = clouds.transform.position;
+    cloudsnewpos.y = playerPos.y + 180;  // Ajusta la distancia de las nubes como necesites
+
+    // Aplica la nueva posición a las nubes
+    clouds.transform.position = cloudsnewpos;
+
+    // Mostrar logs para depuración
+    Debug.Log($"Posición actual del jugador: {playerPos}");
+    Debug.Log($"Nueva posición de las nubes: {clouds.transform.position}");
+}
+
 }
 
