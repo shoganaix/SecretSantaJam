@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public Card_SO[] deck;
+    [HideInInspector]
+    public float PlayerLife = -1;
 
     void Awake()
     {
@@ -14,7 +16,6 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }

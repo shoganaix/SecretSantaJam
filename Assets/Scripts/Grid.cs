@@ -29,6 +29,8 @@ public class Grid : MonoBehaviour
         Transform spawnPosition = transform.GetChild(startIndex);
         player = Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity);
         gridOccupants[startIndex] = player;
+
+        PlayerGamePlay.PlayerDead += DeadPlayer;
     }
 
     private void SetEnemies()
@@ -191,6 +193,18 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public bool LastEnemy()
+    {
+        foreach (var entry in gridOccupants)
+        {
+            if (entry.Value.CompareTag("Enemy"))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void RemoveEnemy(int enemyId)
     {
         foreach (var entry in gridOccupants)
@@ -198,12 +212,22 @@ public class Grid : MonoBehaviour
             if (entry.Value.CompareTag("Enemy") && entry.Value.GetComponent<Enemy>().id == enemyId)
             {
                 gridOccupants.Remove(entry.Key);
+                if (LastEnemy())
+                    NoMoreEnemies();
                 break;
             }
         }
     }
 
+    public void NoMoreEnemies()
+    {
+        Debug.Log("Todos los enemigos muertos");
+    }
 
+    public void DeadPlayer()
+    {
+        Debug.Log("El player a muerto");
+    }
 }
 
 

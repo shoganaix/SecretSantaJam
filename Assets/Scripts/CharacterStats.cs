@@ -25,6 +25,10 @@ public class CharacterStats : MonoBehaviour
     {
         return life;
     }
+    public void SetLife(float newLife)
+    {
+        life  = newLife;
+    }
 
     public void GetDamage(float Damage)
     {

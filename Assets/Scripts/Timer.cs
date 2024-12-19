@@ -17,10 +17,17 @@ public class Timer : MonoBehaviour
     private float timer = 0;
     private float timerAux = 0;
 
+    private bool stopTimer = false;
+
+    private void Start()
+    {
+        PlayerGamePlay.PlayerDead += StopTime;
+    }
 
     private void Update()
     {
-        timerAux += Time.deltaTime;
+        if (!stopTimer)
+            timerAux += Time.deltaTime;
         if (timerBar != null)
         {
             float fillAmount = 1f - (timerAux / timer);
@@ -40,4 +47,8 @@ public class Timer : MonoBehaviour
         }
     }
 
+    public void StopTime()
+    {
+        stopTimer = true;
+    }
 }
