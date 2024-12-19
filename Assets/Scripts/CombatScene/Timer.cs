@@ -6,20 +6,28 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    public CharacterStats[] characters;
-    public static event Action<CharacterStats[]> Event;
+    public Grid_Gameplay grid;
+    public static event Action<Grid_Gameplay> Event;
+    public static event Action<Grid_Gameplay> heal;
+    public static event Action<Grid_Gameplay> damage;
     public static event Action stealCard;
-    public static event Action enemy;
     [SerializeField]
     private RectTransform timerBar;
     [SerializeField]
     private float timer = 0;
     private float timerAux = 0;
 
+    private bool stopTimer = false;
+
+    private void Start()
+    {
+        PlayerGamePlay.PlayerDead += StopTime;
+    }
 
     private void Update()
     {
-        timerAux += Time.deltaTime;
+        if (!stopTimer)
+            timerAux += Time.deltaTime;
         if (timerBar != null)
         {
             float fillAmount = 1f - (timerAux / timer);
@@ -28,13 +36,19 @@ public class Timer : MonoBehaviour
         if(timerAux >= timer)
         {
             if (Event != null)
-                Event.Invoke(characters);
+                Event.Invoke(grid);
             if (stealCard != null)
                 stealCard.Invoke();
-            if (enemy != null)
-                enemy.Invoke();
+            if (heal != null)
+                heal.Invoke(grid);
+            if (damage != null)
+                damage.Invoke(grid);
             timerAux = 0;
         }
     }
 
+    public void StopTime()
+    {
+        stopTimer = true;
+    }
 }

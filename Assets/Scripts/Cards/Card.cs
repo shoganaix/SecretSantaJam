@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    public Sprite sprite;
+    [HideInInspector]
+    public GameAction gameAction;
     [HideInInspector]
     public CardContainer cardContainer;
     [HideInInspector]
@@ -16,6 +17,7 @@ public class Card : MonoBehaviour
     private bool isBack = false;
     [HideInInspector]
     public bool isDragging = false;
+    [HideInInspector]
     public bool isTrigger = false;
     private bool isOn = false;
     private float animSpeed = 100f;
@@ -34,9 +36,9 @@ public class Card : MonoBehaviour
         targetRotation = originRot;
     }
 
-    virtual public void CardAction(CharacterStats[] characters)
+    public void CardAction(Grid_Gameplay grid)
     {
-        Debug.Log("Action");
+        gameAction.DoAction(grid, -1);
         Timer.Event -= CardAction;
     }
 

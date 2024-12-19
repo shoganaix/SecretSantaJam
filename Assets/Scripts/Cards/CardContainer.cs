@@ -8,9 +8,10 @@ public class CardContainer : MonoBehaviour
     public int maxCards = 5;
     public float offset = 1.7f;
     public Transform scaleChild;
+    public Card_SO fallbackCardSO;
 
-    private List<GameObject> cardPool = new List<GameObject>();
     private List<GameObject> activeCards = new List<GameObject>();
+    private List<GameObject> deck = new List<GameObject>();
     private Dictionary<GameObject, (Vector3 position, Quaternion rotation)> cardStates = new Dictionary<GameObject, (Vector3, Quaternion)>();
     private float animTime = 0.2f;
     [HideInInspector]
@@ -18,36 +19,86 @@ public class CardContainer : MonoBehaviour
 
     void Start()
     {
-        InitializePool();
-        AddCard();
-        AddCard();
-        AddCard();
-        AddCard();
-        Timer.stealCard += AddCard;
+        InitializeDeck();
+        DealInitialCards();
+        Timer.stealCard += DrawCard;
     }
 
-    private void InitializePool()
+    private void InitializeDeck()
     {
-        for (int i = 0; i < maxCards * 2; i++)
+        var cardSODeck = GameController.Instance.deck;
+
+        foreach (var cardSO in cardSODeck)
         {
             GameObject newCard = Instantiate(cardPrefab, transform);
+            var card = newCard.GetComponent<Card>();
+
+            Transform childTransform = newCard.transform.GetChild(0);
+            if (childTransform.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+            {
+                spriteRenderer.color = cardSO.color;
+            }
+
+            card.gameAction.Type = cardSO.actionType;
+
             newCard.SetActive(false);
-            cardPool.Add(newCard);
+            deck.Add(newCard);
+        }
+
+        ShuffleDeck();
+    }
+
+    private void ShuffleDeck()
+    {
+        System.Random rng = new System.Random();
+        for (int i = 0; i < deck.Count; i++)
+        {
+            int randomIndex = rng.Next(i, deck.Count);
+            var temp = deck[i];
+            deck[i] = deck[randomIndex];
+            deck[randomIndex] = temp;
         }
     }
 
-    public void AddCard()
+    private void DealInitialCards()
+    {
+        for (int i = 0; i < maxCards; i++)
+        {
+            DrawCard();
+        }
+    }
+
+    public void DrawCard()
     {
         if (activeCards.Count >= maxCards)
             return;
 
-        GameObject card = GetCardFromPool();
-        if (card != null)
+        GameObject card;
+
+        if (deck.Count > 0)
         {
-            activeCards.Add(card);
-            card.GetComponent<Card>().cardContainer = this;
-            UpdateCardPositions();
+            card = deck[0];
+            deck.RemoveAt(0);
         }
+        else
+        {
+            card = Instantiate(cardPrefab, transform);
+            var fallbackCard = card.GetComponent<Card>();
+
+            Transform childTransform = card.transform.GetChild(0);
+            if (childTransform.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+            {
+                spriteRenderer.color = fallbackCardSO.color;
+            }
+
+            fallbackCard.gameAction.Type = fallbackCardSO.actionType;
+        }
+
+        card.SetActive(true);
+        activeCards.Add(card);
+        card.GetComponent<Card>().cardContainer = this;
+
+        UpdateCardPositions();
     }
 
     public void RemoveCard(Card card)
@@ -56,21 +107,9 @@ public class CardContainer : MonoBehaviour
         {
             activeCards.Remove(card.gameObject);
             card.gameObject.SetActive(false);
+
             UpdateCardPositions();
         }
-    }
-
-    private GameObject GetCardFromPool()
-    {
-        foreach (var card in cardPool)
-        {
-            if (!card.activeInHierarchy)
-            {
-                card.SetActive(true);
-                return card;
-            }
-        }
-        return null;
     }
 
     public void AdjustCardsForHover(GameObject hoveredCard, float hoverOffset)
@@ -106,7 +145,7 @@ public class CardContainer : MonoBehaviour
         float startX = -((activeCards.Count - 1) * step) / 2;
         float angleStep = activeCards.Count > 1 ? -40f / (activeCards.Count - 1) : 0;
         float zOffsetStep = 0.02f;
-        
+
         for (int i = 0; i < activeCards.Count; i++)
         {
             float xPosition = startX + i * step;
@@ -126,7 +165,7 @@ public class CardContainer : MonoBehaviour
             activeCards[i].GetComponent<Card>().originPos = targetPosition;
             activeCards[i].GetComponent<Card>().originRot = targetRotation;
 
-            
+
             activeCards[i].GetComponent<Card>().targetPosition = targetPosition;
             activeCards[i].GetComponent<Card>().targetRotation = targetRotation;
 
@@ -134,7 +173,6 @@ public class CardContainer : MonoBehaviour
                 StartCoroutine(moveCards(activeCards[i], targetPosition, targetRotation, i == activeCards.Count - 1));
         }
     }
-
 
     private IEnumerator moveCards(GameObject card, Vector3 targetPos, Quaternion targetRot, bool isLast)
     {
@@ -164,5 +202,5 @@ public class CardContainer : MonoBehaviour
         if (isLast)
             isUpdatingCards = false;
     }
-
 }
+

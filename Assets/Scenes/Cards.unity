@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters: []
+  timerBar: {fileID: 0}
   timer: 2
 --- !u!1 &1552011254
 GameObject:
@@ -403,7 +404,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1577128085}
-  - component: {fileID: 1577128086}
   - component: {fileID: 1577128088}
   - component: {fileID: 1577128087}
   - component: {fileID: 1577128089}
@@ -429,19 +429,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1577128086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577128084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44951ab03cc1cdd45a6f0e904889270d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  card: {fileID: 0}
 --- !u!61 &1577128087
 BoxCollider2D:
   m_ObjectHideFlags: 0
