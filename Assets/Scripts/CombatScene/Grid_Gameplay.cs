@@ -230,7 +230,8 @@ public class Grid_Gameplay : MonoBehaviour
     public void DeadPlayer()
     {
         Debug.Log("Losing condition");
-        //SceneManager.LoadScene("GameLost");
+        GameController.Instance.mapPos = 0;
+        SceneManager.LoadScene("GameLost");
     }
 }
 

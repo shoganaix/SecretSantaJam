@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c51db722c49fef247a8aa6968ca8586b
   - enabled: 1
+    path: Assets/Scenes/GameLost.unity
+    guid: 23d16de1ff3c03c4e8f0fc14eb23e8d6
+  - enabled: 1
     path: Assets/Scenes/Map.unity
     guid: 938b70bdd3d9eef46b0758a2f138fb5a
   - enabled: 1
