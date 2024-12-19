@@ -263,6 +263,7 @@ MonoBehaviour:
   maxCards: 5
   offset: 2.2
   scaleChild: {fileID: 1552011255}
+  fallbackCardSO: {fileID: 11400000, guid: 2d78afd2ba7894d43acf5b481b394439, type: 2}
   isUpdatingCards: 0
 --- !u!1 &643972854
 GameObject:
@@ -305,12 +306,74 @@ MonoBehaviour:
   m_GameObject: {fileID: 643972854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66da8762c00eeb441ad9df46d2155459, type: 3}
+  m_Script: {fileID: 11500000, guid: ac1a470da8f80c745876e7180f37025c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters: []
+  grid: {fileID: 0}
   timerBar: {fileID: 0}
-  timer: 2
+  timer: 0
+--- !u!1 &712486833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712486835}
+  - component: {fileID: 712486834}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &712486834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712486833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f9bc5956a338a40ace533f9364ed1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck:
+  - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
+  - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
+  - {fileID: 11400000, guid: 05a2e61c23ae2174f9b08c323116e3c4, type: 2}
+  - {fileID: 11400000, guid: 05a2e61c23ae2174f9b08c323116e3c4, type: 2}
+  - {fileID: 11400000, guid: f024eff68c1240f4287b2322088852d5, type: 2}
+  - {fileID: 11400000, guid: f024eff68c1240f4287b2322088852d5, type: 2}
+  - {fileID: 11400000, guid: 8ad17e8c57b74394297169b0c37a4ebd, type: 2}
+  - {fileID: 11400000, guid: 8ad17e8c57b74394297169b0c37a4ebd, type: 2}
+  - {fileID: 11400000, guid: 1fbe5fead95e9004c901072683bdf219, type: 2}
+  - {fileID: 11400000, guid: 0d048869c9cfb5149ab8a25e83dfdcca, type: 2}
+  - {fileID: 11400000, guid: 5910754b39c061a4397d6ac207442ec1, type: 2}
+  - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
+  - {fileID: 11400000, guid: 1fbe5fead95e9004c901072683bdf219, type: 2}
+  - {fileID: 11400000, guid: 0d048869c9cfb5149ab8a25e83dfdcca, type: 2}
+  - {fileID: 11400000, guid: 5910754b39c061a4397d6ac207442ec1, type: 2}
+  - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
+  PlayerLife: -1
+--- !u!4 &712486835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712486833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.79415613, y: 6.4171433, z: 0.5098254}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1552011254
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,3 +624,4 @@ SceneRoots:
   - {fileID: 643972855}
   - {fileID: 1577128085}
   - {fileID: 624352387}
+  - {fileID: 712486835}
