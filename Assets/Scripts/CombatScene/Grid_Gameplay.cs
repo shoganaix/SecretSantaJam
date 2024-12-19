@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.SceneManagement;
 
 public class Grid_Gameplay : MonoBehaviour
 {
@@ -221,12 +222,15 @@ public class Grid_Gameplay : MonoBehaviour
 
     public void NoMoreEnemies()
     {
-        Debug.Log("Todos los enemigos muertos");
+        GameController.Instance.mapPos++;
+        SceneManager.LoadScene("Map");
+        Debug.Log("Victory condition");
     }
 
     public void DeadPlayer()
     {
-        Debug.Log("El player a muerto");
+        Debug.Log("Losing condition");
+        //SceneManager.LoadScene("GameLost");
     }
 }
 

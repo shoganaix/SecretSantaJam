@@ -32,10 +32,12 @@ public class CharacterStats : MonoBehaviour
 
     public void GetDamage(float Damage)
     {
-        lifeBar.GetComponent<SpriteRenderer>().color = Color.red;
         if (!bubble)
+        {
+            lifeBar.GetComponent<SpriteRenderer>().color = Color.red;
             life -= Damage;
-        StartCoroutine((changeBarColor()));
+            StartCoroutine((changeBarColor()));
+        }
     }
 
     public void Heal()
