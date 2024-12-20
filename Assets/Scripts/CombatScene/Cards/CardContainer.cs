@@ -9,6 +9,7 @@ public class CardContainer : MonoBehaviour
     public float offset = 1.7f;
     public Transform scaleChild;
     public Card_SO fallbackCardSO;
+    public Grid_Gameplay grid_Gameplay;
 
     private List<GameObject> activeCards = new List<GameObject>();
     private List<GameObject> deck = new List<GameObject>();
@@ -82,16 +83,8 @@ public class CardContainer : MonoBehaviour
         }
         else
         {
-            card = Instantiate(cardPrefab, transform);
-            var fallbackCard = card.GetComponent<Card>();
-
-            Transform childTransform = card.transform.GetChild(0);
-            if (childTransform.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
-            {
-                spriteRenderer.color = fallbackCardSO.color;
-            }
-
-            fallbackCard.gameAction.Type = fallbackCardSO.actionType;
+            grid_Gameplay.DeadPlayer();
+            return;
         }
 
         card.SetActive(true);

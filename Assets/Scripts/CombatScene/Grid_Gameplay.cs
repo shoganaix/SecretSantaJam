@@ -161,7 +161,7 @@ public class Grid_Gameplay : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
-                if (entry.Value.CompareTag("Enemy") && (GetObjectIndex(entry.Value) == 6 + GetObjectIndex(player) || GetObjectIndex(entry.Value) == 9 + GetObjectIndex(player) )&&
+                if (entry.Value.CompareTag("Enemy") && (GetObjectIndex(entry.Value) == 3 + GetObjectIndex(player) || GetObjectIndex(entry.Value) == 6 + GetObjectIndex(player) )&&
                     GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
                 {
                     entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
