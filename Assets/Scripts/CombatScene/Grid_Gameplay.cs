@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Grid_Gameplay : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Grid_Gameplay : MonoBehaviour
     [SerializeField]
     public GameObject player;
     public GameObject[] enemies;
+    public Image[] gridDamage;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class Grid_Gameplay : MonoBehaviour
 
         SpawnPlayer();
         SetEnemies();
+        setDamageGrid();
     }
 
     private void SpawnPlayer()
@@ -49,6 +52,13 @@ public class Grid_Gameplay : MonoBehaviour
         }
     }
 
+    private void setDamageGrid()
+    {
+        foreach (Image image in gridDamage)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
+        }
+    }
 
     public void Move(int direction)
     {
@@ -140,17 +150,23 @@ public class Grid_Gameplay : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
-                if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8 && 
-                    GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+                if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
                 {
-                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                    StartCoroutine(damageGrid(gridDamage[6]));
+                    StartCoroutine(damageGrid(gridDamage[7]));
+                    StartCoroutine(damageGrid(gridDamage[8]));
+                    if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
+                        entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
                 }
             }
         }
-        else if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5 && 
-            GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
+        else if (GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
         {
-            player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+            StartCoroutine(damageGrid(gridDamage[3]));
+            StartCoroutine(damageGrid(gridDamage[4]));
+            StartCoroutine(damageGrid(gridDamage[5]));
+            if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+                player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
         }
     }
 
@@ -161,17 +177,21 @@ public class Grid_Gameplay : MonoBehaviour
         {
             foreach (var entry in gridOccupants)
             {
-                if (entry.Value.CompareTag("Enemy") && (GetObjectIndex(entry.Value) == 3 + GetObjectIndex(player) || GetObjectIndex(entry.Value) == 6 + GetObjectIndex(player) )&&
-                    GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
+                if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
                 {
-                    entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                    StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) + 6]));
+                    StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) + 3]));
+                    if (entry.Value.CompareTag("Enemy") && (GetObjectIndex(entry.Value) == 3 + GetObjectIndex(player) || GetObjectIndex(entry.Value) == 6 + GetObjectIndex(player)))
+                        entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
                 }
             }
         }
-        else if ((GetObjectIndex(player) == 0 + (GetObjectIndex(GetObjectbyIndex(id)) - 6) || GetObjectIndex(player) == 3 + (GetObjectIndex(GetObjectbyIndex(id)) - 6) )&&
-            GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
+        else if (GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
         {
-            player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+            StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) - 6]));
+            StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) - 3]));
+            if (GetObjectIndex(player) == 0 + (GetObjectIndex(GetObjectbyIndex(id)) - 6) || GetObjectIndex(player) == 3 + (GetObjectIndex(GetObjectbyIndex(id)) - 6))
+                player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
         }
     }
     
@@ -185,13 +205,40 @@ public class Grid_Gameplay : MonoBehaviour
                 if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) == GetObjectIndex(player) + 6)
                 {
                     entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                    StartCoroutine(damageGrid(gridDamage[GetObjectIndex(player) + 6]));
                 }
             }
         }
-        else if (GetObjectIndex(player) == GetObjectIndex(GetObjectbyIndex(id)) - 6)
+        else 
         {
-            player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+            StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) - 6]));
+            if (GetObjectIndex(player) == GetObjectIndex(GetObjectbyIndex(id)) - 6)
+            {
+                player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
+            }
         }
+    }
+
+    private IEnumerator damageGrid(Image image)
+    {
+        float elapsedTime = 0f;
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 100);
+        while (elapsedTime < 0.3f)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / 0.3f);
+            image.color = new Color(
+                image.color.r,
+                image.color.g,
+                image.color.b,
+                alpha
+            );
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
     }
 
     public bool LastEnemy()
@@ -222,83 +269,16 @@ public class Grid_Gameplay : MonoBehaviour
 
     public void NoMoreEnemies()
     {
-        string currentScene = SceneManager.GetActiveScene().name;
-        switch (currentScene)
-        {
-        case "Level_1":
-            GameController.Instance.mapPos = 1;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level_2":
-            GameController.Instance.mapPos = 2;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level3_1":
-            GameController.Instance.mapPos = 3;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level3_2":
-            GameController.Instance.mapPos = 4;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level4_1":
-            GameController.Instance.mapPos = 5;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level4_2":
-            GameController.Instance.mapPos = 6;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level5_1v":
-            GameController.Instance.mapPos = 7;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level5_2":
-            GameController.Instance.mapPos = 8;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level5_3":
-            GameController.Instance.mapPos = 9;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level6_1":
-            GameController.Instance.mapPos = 10;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level6_2":
-            GameController.Instance.mapPos = 11;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "Level6_3":
-            GameController.Instance.mapPos = 12;
-            SceneManager.LoadScene("Map");
-            break;
-
-        case "LevelBoss":
-            GameController.Instance.mapPos = 13;
-            SceneManager.LoadScene("Map");
-            break;
-
-            default:
-                Debug.LogWarning("Escena no reconocida.");
-                break;
-        }
-        Debug.Log($"New Pos: {GameController.Instance.mapPos}");
+        GameController.Instance.PlayerLife = player.GetComponent<CharacterStats>().GetLife();
+        GameController.Instance.mapPos++;
+        SceneManager.LoadScene("Map");
+        Debug.Log("Victory condition");
     }
 
     public void DeadPlayer()
     {
+        GameController.Instance.PlayerLife = -1;
+        GameController.Instance.PlayerMaxLife = 10;
         Debug.Log("Losing condition");
         GameController.Instance.mapPos = 0;
         SceneManager.LoadScene("GameLost");

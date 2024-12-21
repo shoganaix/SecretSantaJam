@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f42c8be9c976d440b3ba35a922b3fcf, type: 3}
   m_Name: Left
   m_EditorClassIdentifier: 
-  color: {r: 0.6415094, g: 0, b: 0.4424693, a: 1}
+  sprite: {fileID: 21300000, guid: 792b6299920218740b2c9db72a3d04a6, type: 3}
   actionType: 2

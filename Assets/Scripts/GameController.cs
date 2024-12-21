@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public Card_SO[] deck;
     [HideInInspector]
     public float PlayerLife = -1;
+    public float PlayerMaxLife = 10;
 
     void Awake()
     {

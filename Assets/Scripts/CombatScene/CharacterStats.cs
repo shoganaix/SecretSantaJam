@@ -14,11 +14,14 @@ public class CharacterStats : MonoBehaviour
     public float damage = 1;
     private float life;
     private bool bubble = false;
+    public bool isDamage = false;
     private float bubbleAux = 0;
+    public float scaleBar = 2;
 
     void Awake()
     {
         life = maxLife;
+        scaleBar = lifeBar.GetComponent<RectTransform>().localScale.x;
     }
 
     public float GetLife()
@@ -37,6 +40,7 @@ public class CharacterStats : MonoBehaviour
             lifeBar.GetComponent<SpriteRenderer>().color = Color.red;
             life -= Damage;
             StartCoroutine((changeBarColor()));
+            isDamage = true;
         }
     }
 
@@ -44,6 +48,15 @@ public class CharacterStats : MonoBehaviour
     {
         lifeBar.GetComponent<SpriteRenderer>().color = Color.green;
         life += healPower;
+        if (life > maxLife)
+            life = maxLife;
+        StartCoroutine((changeBarColor()));
+    }
+
+    public void Heal(int heal)
+    {
+        lifeBar.GetComponent<SpriteRenderer>().color = Color.green;
+        life += heal;
         if (life > maxLife)
             life = maxLife;
         StartCoroutine((changeBarColor()));
@@ -62,7 +75,7 @@ public class CharacterStats : MonoBehaviour
         float fillAmount = life / maxLife;
         if (life <= 0)
             fillAmount = 0;
-        lifeBar.GetComponent<RectTransform>().localScale = new Vector3(fillAmount * 2, 0.25f, 1);
+        lifeBar.GetComponent<RectTransform>().localScale = new Vector3(fillAmount * scaleBar, 0.25f, 1);
         if(bubble)
         {
             bubbleAux += Time.deltaTime;
@@ -75,7 +88,8 @@ public class CharacterStats : MonoBehaviour
 
     private IEnumerator changeBarColor()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
+        isDamage = false;
     }
 }

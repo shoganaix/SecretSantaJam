@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f42c8be9c976d440b3ba35a922b3fcf, type: 3}
   m_Name: Melee
   m_EditorClassIdentifier: 
-  color: {r: 0.8392157, g: 0.724348, b: 0.24313723, a: 1}
+  sprite: {fileID: 21300000, guid: b7adacb401d0c08489faf73f1d7f157d, type: 3}
   actionType: 5

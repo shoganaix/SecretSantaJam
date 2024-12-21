@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f42c8be9c976d440b3ba35a922b3fcf, type: 3}
   m_Name: Line
   m_EditorClassIdentifier: 
-  color: {r: 0.83137256, g: 0.3969683, b: 0.25490192, a: 1}
+  sprite: {fileID: 21300000, guid: 548097c4d214d0242b46150a93536b97, type: 3}
   actionType: 4

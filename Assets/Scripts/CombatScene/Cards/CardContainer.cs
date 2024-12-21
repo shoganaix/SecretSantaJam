@@ -37,7 +37,7 @@ public class CardContainer : MonoBehaviour
             Transform childTransform = newCard.transform.GetChild(0);
             if (childTransform.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
             {
-                spriteRenderer.color = cardSO.color;
+                spriteRenderer.sprite = cardSO.sprite;
             }
 
             card.gameAction.Type = cardSO.actionType;
@@ -80,16 +80,16 @@ public class CardContainer : MonoBehaviour
         {
             card = deck[0];
             deck.RemoveAt(0);
+
+            card.SetActive(true);
+            activeCards.Add(card);
+            card.GetComponent<Card>().cardContainer = this;
         }
-        else
+        else if (activeCards.Count <= 0)
         {
             grid_Gameplay.DeadPlayer();
             return;
         }
-
-        card.SetActive(true);
-        activeCards.Add(card);
-        card.GetComponent<Card>().cardContainer = this;
 
         UpdateCardPositions();
     }

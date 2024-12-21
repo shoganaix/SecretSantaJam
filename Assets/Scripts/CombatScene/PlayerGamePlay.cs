@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerGamePlay : MonoBehaviour
 {
+    private Animator player_Anim;
     public static event Action PlayerDead;
     [SerializeField]
     private CharacterStats Stats;
@@ -19,12 +20,15 @@ public class PlayerGamePlay : MonoBehaviour
         else
 
             Stats.SetLife(GameController.Instance.PlayerLife);
+
+        player_Anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (Stats.GetLife() <= 0)
             StartCoroutine((dead()));
+        player_Anim.SetBool("IsDamage", Stats.isDamage);
     }
 
     private IEnumerator dead()
