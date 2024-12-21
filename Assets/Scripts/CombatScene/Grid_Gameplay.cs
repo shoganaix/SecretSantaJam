@@ -222,9 +222,79 @@ public class Grid_Gameplay : MonoBehaviour
 
     public void NoMoreEnemies()
     {
-        GameController.Instance.mapPos++;
-        SceneManager.LoadScene("Map");
-        Debug.Log("Victory condition");
+        string currentScene = SceneManager.GetActiveScene().name;
+        switch (currentScene)
+        {
+        case "Level_1":
+            GameController.Instance.mapPos = 1;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level_2":
+            GameController.Instance.mapPos = 2;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level3_1":
+            GameController.Instance.mapPos = 3;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level3_2":
+            GameController.Instance.mapPos = 4;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level4_1":
+            GameController.Instance.mapPos = 5;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level4_2":
+            GameController.Instance.mapPos = 6;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level5_1v":
+            GameController.Instance.mapPos = 7;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level5_2":
+            GameController.Instance.mapPos = 8;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level5_3":
+            GameController.Instance.mapPos = 9;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level6_1":
+            GameController.Instance.mapPos = 10;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level6_2":
+            GameController.Instance.mapPos = 11;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "Level6_3":
+            GameController.Instance.mapPos = 12;
+            SceneManager.LoadScene("Map");
+            break;
+
+        case "LevelBoss":
+            GameController.Instance.mapPos = 13;
+            SceneManager.LoadScene("Map");
+            break;
+
+            default:
+                Debug.LogWarning("Escena no reconocida.");
+                break;
+        }
+        Debug.Log($"New Pos: {GameController.Instance.mapPos}");
     }
 
     public void DeadPlayer()

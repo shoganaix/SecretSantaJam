@@ -33,7 +33,7 @@ public class ManejoDeMapa : MonoBehaviour
     public GameObject botonboss;
 
 
-    public int posicionmapa = 0;
+    public int posicionmapa = 5;
 
     void Start()
     {
