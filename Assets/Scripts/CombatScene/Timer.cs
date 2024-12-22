@@ -31,7 +31,7 @@ public class Timer : MonoBehaviour
         if (timerBar != null)
         {
             float fillAmount = 1f - (timerAux / timer);
-            timerBar.localScale = new Vector3(Mathf.Clamp01(fillAmount)*20, 1.5f, 1);
+            timerBar.localScale = new Vector3(Mathf.Clamp01(fillAmount)* 10, 10, 10);
         }
         if(timerAux >= timer)
         {
