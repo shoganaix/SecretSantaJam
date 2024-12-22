@@ -73,7 +73,7 @@ public class GameController : MonoBehaviour
                 SceneManager.LoadScene("Map");
                 break;
 
-            case "Level5_1v":
+            case "Level5_1":
                 GameController.Instance.mapPos = 7;
                 SceneManager.LoadScene("Map");
                 break;

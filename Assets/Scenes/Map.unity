@@ -3695,7 +3695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f9bc5956a338a40ace533f9364ed1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPos: 0
+  mapPos: 5
   deckBasic:
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
@@ -3712,7 +3712,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1fbe5fead95e9004c901072683bdf219, type: 2}
   - {fileID: 11400000, guid: 0d048869c9cfb5149ab8a25e83dfdcca, type: 2}
   - {fileID: 11400000, guid: 5910754b39c061a4397d6ac207442ec1, type: 2}
-  - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   deck:
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
@@ -3731,7 +3730,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   - {fileID: 11400000, guid: 1fbe5fead95e9004c901072683bdf219, type: 2}
   - {fileID: 11400000, guid: 0d048869c9cfb5149ab8a25e83dfdcca, type: 2}
-  - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   PlayerLife: 10
   PlayerMaxLife: 10
 --- !u!4 &1058364184
