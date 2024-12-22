@@ -2405,11 +2405,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 959540406}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: -551.22}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 184.44836, y: 1.7915139}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.50000006, y: -0.00000005029142}
+  m_Pivot: {x: 0.12438142, y: 0.5}
 --- !u!114 &734534451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3695,7 +3695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f9bc5956a338a40ace533f9364ed1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPos: 12
+  mapPos: 0
   deckBasic:
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
