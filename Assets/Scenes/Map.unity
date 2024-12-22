@@ -3695,7 +3695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f9bc5956a338a40ace533f9364ed1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPos: 0
+  mapPos: 12
   deckBasic:
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
