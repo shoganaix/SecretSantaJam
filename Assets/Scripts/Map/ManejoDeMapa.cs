@@ -37,7 +37,7 @@ public class ManejoDeMapa : MonoBehaviour
 
     void Start()
     {
-        //posicionmapa = 5;
+        //posicionmapa = 0;
         posicionmapa = GameController.Instance.mapPos;
         switch (posicionmapa)
         {
