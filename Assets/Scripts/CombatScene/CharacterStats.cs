@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -50,7 +52,7 @@ public class CharacterStats : MonoBehaviour
         life += healPower;
         if (life > maxLife)
             life = maxLife;
-        StartCoroutine((changeBarColor()));
+        StartCoroutine((AnimateHeal()));
     }
 
     public void Heal(int heal)
@@ -59,7 +61,7 @@ public class CharacterStats : MonoBehaviour
         life += heal;
         if (life > maxLife)
             life = maxLife;
-        StartCoroutine((changeBarColor()));
+        StartCoroutine((AnimateHeal()));
     }
 
     public void ActivateBubble()
@@ -91,5 +93,35 @@ public class CharacterStats : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
         isDamage = false;
+    }
+
+    private IEnumerator AnimateHeal()
+    {
+        float elapsedTime = 0f;
+        Debug.Log("entra");
+        while (elapsedTime < 0.10f)
+        {
+            float color = Mathf.Lerp(255f, 100f, elapsedTime / 0.10f);
+            float alphaX = Mathf.Lerp(3f, 2f, elapsedTime / 0.10f);
+            float alphaY = Mathf.Lerp(3f, 3.5f, elapsedTime / 0.10f);
+            transform.localScale = new Vector3(alphaX, alphaY, 0);
+            transform.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 255, 0);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        while (elapsedTime < 0.20f)
+        {
+            float color = Mathf.Lerp(100f, 255, elapsedTime / 0.20f);
+            float alphaX = Mathf.Lerp(2f, 3f, elapsedTime / 0.20f);
+            float alphaY = Mathf.Lerp(3.5f, 3f, elapsedTime / 0.20f);
+            transform.localScale = new Vector3(alphaX, alphaY, 0);
+            transform.gameObject.GetComponent<SpriteRenderer>().color = new Color(color, 255, color);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
