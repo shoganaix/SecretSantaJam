@@ -278,19 +278,15 @@ public class ManejoDeMapa : MonoBehaviour
 
 void MoverClouds()
 {
-    // Obtiene la posición del jugador
     Vector3 playerPos = player.transform.position;
 
-    // Calcula la nueva posición de las nubes, desplazándolas verticalmente en función del jugador
     Vector3 cloudsnewpos = clouds.transform.position;
-    cloudsnewpos.y = playerPos.y + 180;  // Ajusta la distancia de las nubes como necesites
+    cloudsnewpos.x = playerPos.x;
 
-    // Aplica la nueva posición a las nubes
     clouds.transform.position = cloudsnewpos;
 
-    // Mostrar logs para depuración
-    Debug.Log($"Posición actual del jugador: {playerPos}");
-    Debug.Log($"Nueva posición de las nubes: {clouds.transform.position}");
+    Debug.Log($"PlayerPos: {playerPos}");
+    Debug.Log($"CloudPos: {clouds.transform.position}");
 }
 
 }
