@@ -2613,7 +2613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2872723547324791837, guid: ef505aa7188f1dc4fb7ff79be27c85b5, type: 3}
       propertyPath: initPos
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2872723547324791837, guid: ef505aa7188f1dc4fb7ff79be27c85b5, type: 3}
       propertyPath: secuence.Array.size
@@ -2707,7 +2707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2872723547324791837, guid: ef505aa7188f1dc4fb7ff79be27c85b5, type: 3}
       propertyPath: initPos
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2872723547324791837, guid: ef505aa7188f1dc4fb7ff79be27c85b5, type: 3}
       propertyPath: secuence.Array.size
