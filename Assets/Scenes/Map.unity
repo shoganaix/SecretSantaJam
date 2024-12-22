@@ -3713,6 +3713,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0d048869c9cfb5149ab8a25e83dfdcca, type: 2}
   - {fileID: 11400000, guid: 5910754b39c061a4397d6ac207442ec1, type: 2}
   - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
+  - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   deck:
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
   - {fileID: 11400000, guid: 7a4fbdd5b3f98784eb0099989bf8e56d, type: 2}
@@ -3730,6 +3731,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   - {fileID: 11400000, guid: 1fbe5fead95e9004c901072683bdf219, type: 2}
   - {fileID: 11400000, guid: 0d048869c9cfb5149ab8a25e83dfdcca, type: 2}
+  - {fileID: 11400000, guid: 4c44c3cdd67603641977c6aed0f3c3f2, type: 2}
   PlayerLife: 10
   PlayerMaxLife: 10
 --- !u!4 &1058364184

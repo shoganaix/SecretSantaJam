@@ -2058,7 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c85460a220aca49b7dbc9f1d39fbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startIndex: 0
   playerPrefab: {fileID: 1055972781091487193, guid: d702a5d7e205d784387e146d0fd4b66e, type: 3}
   player: {fileID: 0}
   enemies:
@@ -3641,7 +3640,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 824523974775605046, guid: ef505aa7188f1dc4fb7ff79be27c85b5, type: 3}
       propertyPath: maxLife
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1551624579441451385, guid: ef505aa7188f1dc4fb7ff79be27c85b5, type: 3}
       propertyPath: m_Name

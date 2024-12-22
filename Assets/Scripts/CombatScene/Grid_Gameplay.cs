@@ -11,7 +11,7 @@ public class Grid_Gameplay : MonoBehaviour
     private Dictionary<int, GameObject> gridOccupants;
     private int gridSize;
 
-    private int startIndex = 4;
+    private int startIndex = 1;
     public GameObject playerPrefab;
     [HideInInspector]
     public GameObject player;
