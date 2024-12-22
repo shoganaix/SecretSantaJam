@@ -140,7 +140,22 @@ public class Grid_Gameplay : MonoBehaviour
         }
         gridOccupants[newIndex] = obj;
 
-        obj.transform.position = transform.GetChild(newIndex).position;
+        StartCoroutine(AnimateMovement(obj, transform.GetChild(newIndex).position, 0.1f));
+    }
+
+    private IEnumerator AnimateMovement(GameObject obj, Vector3 targetPosition, float duration)
+    {
+        Vector3 startPosition = obj.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.transform.position = targetPosition;
     }
 
     public void MeleeDamage(int id)
@@ -157,11 +172,13 @@ public class Grid_Gameplay : MonoBehaviour
                     StartCoroutine(damageGrid(gridDamage[8]));
                     if (entry.Value.CompareTag("Enemy") && GetObjectIndex(entry.Value) >= 6 && GetObjectIndex(entry.Value) <= 8)
                         entry.Value.GetComponent<CharacterStats>().GetDamage(player.GetComponent<CharacterStats>().damage);
+                    StartCoroutine(AnimateAttack(player, player.transform.position - player.transform.right ));
                 }
             }
         }
         else if (GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
         {
+            StartCoroutine(AnimateAttack(GetObjectbyIndex(id), GetObjectbyIndex(id).transform.position + GetObjectbyIndex(id).transform.right));
             StartCoroutine(damageGrid(gridDamage[3]));
             StartCoroutine(damageGrid(gridDamage[4]));
             StartCoroutine(damageGrid(gridDamage[5]));
@@ -179,6 +196,7 @@ public class Grid_Gameplay : MonoBehaviour
             {
                 if (GetObjectIndex(player) >= 3 && GetObjectIndex(player) <= 5)
                 {
+                    StartCoroutine(AnimateAttack(player, player.transform.position - player.transform.right ));
                     StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) + 6]));
                     StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) + 3]));
                     if (entry.Value.CompareTag("Enemy") && (GetObjectIndex(entry.Value) == 3 + GetObjectIndex(player) || GetObjectIndex(entry.Value) == 6 + GetObjectIndex(player)))
@@ -188,6 +206,7 @@ public class Grid_Gameplay : MonoBehaviour
         }
         else if (GetObjectIndex(GetObjectbyIndex(id)) >= 6 && GetObjectIndex(GetObjectbyIndex(id)) <= 8)
         {
+            StartCoroutine(AnimateAttack(GetObjectbyIndex(id), GetObjectbyIndex(id).transform.position + GetObjectbyIndex(id).transform.right));
             StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) - 6]));
             StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) - 3]));
             if (GetObjectIndex(player) == 0 + (GetObjectIndex(GetObjectbyIndex(id)) - 6) || GetObjectIndex(player) == 3 + (GetObjectIndex(GetObjectbyIndex(id)) - 6))
@@ -209,14 +228,40 @@ public class Grid_Gameplay : MonoBehaviour
                 }
             }
         }
-        else 
+        else
         {
+            StartCoroutine(AnimateAttack(GetObjectbyIndex(id), GetObjectbyIndex(id).transform.position + GetObjectbyIndex(id).transform.right));
             StartCoroutine(damageGrid(gridDamage[GetObjectIndex(GetObjectbyIndex(id)) - 6]));
             if (GetObjectIndex(player) == GetObjectIndex(GetObjectbyIndex(id)) - 6)
             {
                 player.GetComponent<CharacterStats>().GetDamage(GetObjectbyIndex(id).GetComponent<CharacterStats>().damage);
             }
         }
+    }
+     
+    private IEnumerator AnimateAttack(GameObject obj, Vector3 targetPosition)
+    {
+        Vector3 startPosition = obj.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.1f)
+        {
+            obj.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / 0.1f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.transform.position = targetPosition;
+        elapsedTime = 0f;
+
+        while (elapsedTime < 0.2f)
+        {
+            obj.transform.position = Vector3.Lerp(targetPosition, startPosition, elapsedTime / 0.2f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.transform.position = startPosition;
     }
 
     private IEnumerator damageGrid(Image image)

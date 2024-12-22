@@ -7,6 +7,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CharacterStats : MonoBehaviour
 {
+    private Animator charAnim;
     [SerializeField]
     private GameObject lifeBar;
     [SerializeField]
@@ -24,6 +25,8 @@ public class CharacterStats : MonoBehaviour
     {
         life = maxLife;
         scaleBar = lifeBar.GetComponent<RectTransform>().localScale.x;
+
+        charAnim = GetComponent<Animator>();
     }
 
     public float GetLife()
@@ -43,6 +46,7 @@ public class CharacterStats : MonoBehaviour
             life -= Damage;
             StartCoroutine((changeBarColor()));
             isDamage = true;
+            charAnim.SetBool("IsDamage", isDamage);
         }
     }
 
@@ -69,6 +73,7 @@ public class CharacterStats : MonoBehaviour
         lifeBar.GetComponent<SpriteRenderer>().color = Color.cyan;
         bubbleAux = 0;
         bubble = true;
+        charAnim.SetBool("Bubble", bubble);
         StartCoroutine((changeBarColor()));
     }
 
@@ -93,6 +98,8 @@ public class CharacterStats : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         lifeBar.GetComponent<SpriteRenderer>().color = Color.white;
         isDamage = false;
+        charAnim.SetBool("Bubble", false);
+        charAnim.SetBool("IsDamage", isDamage);
     }
 
     private IEnumerator AnimateHeal()
