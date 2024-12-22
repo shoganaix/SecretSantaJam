@@ -11,6 +11,11 @@ public class HealScene : MonoBehaviour
 
     void Start()
     {
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Level6_2")
+        {
+            GameController.Instance.mapPos = 11;
+        }
         StartCoroutine(healCoroutine());
     }
 

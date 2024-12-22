@@ -228,7 +228,7 @@ public class ManejoDeMapa : MonoBehaviour
                 if (player != null && pos6_1 != null)
                 {
                     player.transform.position = pos6_1.transform.position;
-                    MoverClouds();
+                    clouds.SetActive(false);
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -241,7 +241,7 @@ public class ManejoDeMapa : MonoBehaviour
                 if (player != null && pos6_2 != null)
                 {
                     player.transform.position = pos6_2.transform.position;
-                    MoverClouds();
+                    clouds.SetActive(false);
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
@@ -255,7 +255,7 @@ public class ManejoDeMapa : MonoBehaviour
                 if (player != null && pos6_3 != null)
                 {
                     player.transform.position = pos6_3.transform.position;
-                    MoverClouds();
+                    clouds.SetActive(false);
                 }
                 DesactivarBotonesPorTag("lvl1");
                 DesactivarBotonesPorTag("lvl2");
