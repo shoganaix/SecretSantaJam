@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance;
     public int mapPos;
     public Card_SO[] deckBasic;
-    [HideInInspector]
+    //[HideInInspector]
     public Card_SO[] deck;
     [HideInInspector]
     public float PlayerLife = 10;
