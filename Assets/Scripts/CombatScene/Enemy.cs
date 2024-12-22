@@ -55,6 +55,9 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator dead()
     {
+        RemoveEnemy.Invoke(id);
+        Timer.Event -= ExecutePattern;
+        Stats.charAnim.enabled = false;
         float elapsedTime = 0f;
         Color originalColor = GetComponent<SpriteRenderer>().color;
         Vector3 originalPosition = transform.position;
@@ -83,8 +86,6 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(originalPosition.x, originalPosition.y - moveDownSpeed, originalPosition.z);
 
         yield return new WaitForSeconds(0.25f);
-        Timer.Event -= ExecutePattern;
-        RemoveEnemy.Invoke(id);
         Destroy(gameObject);
     }
 }

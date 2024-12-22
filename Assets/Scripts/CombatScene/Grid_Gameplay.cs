@@ -306,14 +306,15 @@ public class Grid_Gameplay : MonoBehaviour
             {
                 gridOccupants.Remove(entry.Key);
                 if (LastEnemy())
-                    NoMoreEnemies();
+                    StartCoroutine(NoMoreEnemies());
                 break;
             }
         }
     }
 
-    public void NoMoreEnemies()
+    public IEnumerator NoMoreEnemies()
     {
+        yield return new WaitForSeconds(1f);
         GameController.Instance.LoadMap();
         GameController.Instance.PlayerLife = player.GetComponent<CharacterStats>().GetLife();
     }

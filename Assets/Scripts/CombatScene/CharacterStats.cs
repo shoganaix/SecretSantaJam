@@ -7,7 +7,8 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CharacterStats : MonoBehaviour
 {
-    private Animator charAnim;
+    [HideInInspector]
+    public Animator charAnim;
     [SerializeField]
     private GameObject lifeBar;
     [SerializeField]
@@ -82,7 +83,7 @@ public class CharacterStats : MonoBehaviour
         float fillAmount = life / maxLife;
         if (life <= 0)
             fillAmount = 0;
-        lifeBar.GetComponent<RectTransform>().localScale = new Vector3(fillAmount * scaleBar, 0.25f, 1);
+        lifeBar.GetComponent<RectTransform>().localScale = new Vector3(fillAmount * scaleBar, 2, 1);
         if(bubble)
         {
             bubbleAux += Time.deltaTime;
