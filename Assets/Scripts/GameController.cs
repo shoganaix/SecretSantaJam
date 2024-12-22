@@ -23,6 +23,18 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void AddCardToDeck(Card_SO newCard)
+    {
+        Card_SO[] newDeck = new Card_SO[deck.Length + 1];
+
+        for (int i = 0; i < deck.Length; i++)
+        {
+            newDeck[i] = deck[i];
+        }
+        newDeck[deck.Length] = newCard;
+        deck = newDeck;
+    }
+
     public void LoadMap()
     {
         string currentScene = SceneManager.GetActiveScene().name;
@@ -89,7 +101,7 @@ public class GameController : MonoBehaviour
                 SceneManager.LoadScene("Level6_3.2");
                 break;
 
-            case "LevelBoss":
+            case "Level_Boss":
                 GameController.Instance.mapPos = 13;
                 SceneManager.LoadScene("Map");
                 break;

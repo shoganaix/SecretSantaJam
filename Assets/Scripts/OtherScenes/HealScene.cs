@@ -52,7 +52,6 @@ public class HealScene : MonoBehaviour
     {
         GameController.Instance.PlayerMaxLife += MoreHeal;
         GameController.Instance.PlayerLife = GameController.Instance.PlayerMaxLife;
-        GameController.Instance.mapPos++;
         SceneManager.LoadScene("Map");
     }
 }
