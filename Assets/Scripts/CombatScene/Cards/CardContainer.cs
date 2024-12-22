@@ -81,13 +81,22 @@ public class CardContainer : MonoBehaviour
             card = deck[0];
             deck.RemoveAt(0);
 
+            if (card == null)
+            {
+                Debug.LogWarning("Una carta en el deck fue destruida, pero aún existe en la lista. Ignorando...");
+                return;
+            }
+
             card.SetActive(true);
             activeCards.Add(card);
             card.GetComponent<Card>().cardContainer = this;
         }
         else if (activeCards.Count <= 0)
         {
-            grid_Gameplay.DeadPlayer();
+            if (grid_Gameplay != null)
+            {
+                grid_Gameplay.DeadPlayer();
+            }
             return;
         }
 
@@ -194,6 +203,13 @@ public class CardContainer : MonoBehaviour
 
         if (isLast)
             isUpdatingCards = false;
+    }
+
+    void OnDestroy()
+    {
+        Timer.stealCard -= DrawCard;
+        activeCards.Clear();
+        deck.Clear();
     }
 }
 

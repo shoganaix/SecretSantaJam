@@ -270,14 +270,12 @@ public class Grid_Gameplay : MonoBehaviour
     public void NoMoreEnemies()
     {
         GameController.Instance.LoadMap();
+        GameController.Instance.PlayerLife = player.GetComponent<CharacterStats>().GetLife();
     }
 
     public void DeadPlayer()
     {
-        GameController.Instance.PlayerLife = -1;
-        GameController.Instance.PlayerMaxLife = 10;
         Debug.Log("Losing condition");
-        GameController.Instance.mapPos = 0;
         SceneManager.LoadScene("GameLost");
     }
 }

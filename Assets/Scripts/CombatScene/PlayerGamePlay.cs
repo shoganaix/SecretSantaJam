@@ -15,11 +15,7 @@ public class PlayerGamePlay : MonoBehaviour
 
     void Start()
     {
-        if (GameController.Instance.PlayerLife == -1)
-            GameController.Instance.PlayerLife = Stats.GetLife();
-        else
-
-            Stats.SetLife(GameController.Instance.PlayerLife);
+        Stats.SetLife(GameController.Instance.PlayerLife);
 
         player_Anim = GetComponent<Animator>();
     }

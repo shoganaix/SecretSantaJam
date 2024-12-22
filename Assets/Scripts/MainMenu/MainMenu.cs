@@ -8,25 +8,19 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Playing..");
+        if (GameController.Instance)
+            GameController.Instance.ResetGame();
         SceneManager.LoadSceneAsync("Map");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 
     public void QuitGame()
     {
         Debug.Log("Quitting...");
         Application.Quit();
-    }
-
-        // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

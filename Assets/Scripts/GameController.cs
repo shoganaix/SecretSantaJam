@@ -7,9 +7,11 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public int mapPos;
+    public Card_SO[] deckBasic;
+    //[HideInInspector]
     public Card_SO[] deck;
     [HideInInspector]
-    public float PlayerLife = -1;
+    public float PlayerLife = 10;
     public float PlayerMaxLife = 10;
 
     void Awake()
@@ -111,5 +113,14 @@ public class GameController : MonoBehaviour
                 break;
         }
         Debug.Log($"New pos: {GameController.Instance.mapPos}");
+    }
+
+    public void ResetGame()
+    {
+        deck = (Card_SO[])deckBasic.Clone();
+        PlayerMaxLife = 10;
+        PlayerLife = PlayerMaxLife;
+        GameController.Instance.mapPos = 0;
+
     }
 }
