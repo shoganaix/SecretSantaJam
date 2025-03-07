@@ -36,7 +36,9 @@ These cards restore some of your health.
 - **Protection:**
   
 Use these cards to shield yourself from enemy attacks.
-  
+
+  ![1+qVBF](https://github.com/user-attachments/assets/745f9673-815c-42c2-a545-8cd181010b73)
+
   ### Gameplay
 Both you and the enemy share a simultaneous timer. 
 Each turn lasts 2 seconds, during which you must plan your strategy and play as many cards as you want.
